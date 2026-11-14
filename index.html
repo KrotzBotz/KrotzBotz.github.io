@@ -1,0 +1,840 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dillon Krotz</title>
+<meta name="description" content="Dillon Krotz: software engineer, co-founder and CTO of BitMates, and U.S. Air Force veteran.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<style>
+/* Layout: a survey sheet. A generated contour map runs under the opening,
+   then one column of work, with dates and map coordinates in a left margin. */
+:root {
+  --paper: #F1F3EF;
+  --surface: #E4E9E3;
+  --ink: #17212B;
+  --muted: #56626C;
+  --rule: #CAD2CB;
+  --contour: #BE9C76;
+  --contour-index: #8C6942;
+  --accent: #1F5C99;
+  --marker: #BB3E2A;
+  --display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+  --body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --measure: 64ch;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #10151A;
+    --surface: #182027;
+    --ink: #E3E7E2;
+    --muted: #9AA5AD;
+    --rule: #2B353E;
+    --contour: #6A5946;
+    --contour-index: #A6896A;
+    --accent: #82B7EA;
+    --marker: #EC7B63;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #10151A;
+  --surface: #182027;
+  --ink: #E3E7E2;
+  --muted: #9AA5AD;
+  --rule: #2B353E;
+  --contour: #6A5946;
+  --contour-index: #A6896A;
+  --accent: #82B7EA;
+  --marker: #EC7B63;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1rem/1.6 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+p { margin: 0; }
+
+.wrap {
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* Top bar */
+.topbar { border-bottom: 1px solid var(--rule); background: var(--paper); position: relative; z-index: 2; }
+.topbar-in { display: flex; align-items: center; justify-content: space-between; gap: 10px 24px; flex-wrap: wrap; padding-block: 14px; }
+.mark {
+  font-family: var(--display); font-weight: 800; font-stretch: 125%;
+  font-size: 1rem; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none;
+}
+.nav { display: flex; flex-wrap: wrap; gap: 4px 22px; font-family: var(--mono); font-size: 0.8125rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.nav a { color: var(--muted); text-decoration: none; }
+.nav a:hover { color: var(--ink); }
+
+/* Opening */
+.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--rule); }
+#terrain { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hero-fade {
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg,
+    var(--paper) 0%,
+    color-mix(in srgb, var(--paper) 93%, transparent) 36%,
+    color-mix(in srgb, var(--paper) 30%, transparent) 68%,
+    color-mix(in srgb, var(--paper) 0%, transparent) 100%);
+}
+@media (max-width: 760px) {
+  .hero-fade { background: color-mix(in srgb, var(--paper) 84%, transparent); }
+}
+.hero-in { position: relative; display: grid; gap: 40px; padding-block: clamp(48px, 8vw, 88px) 22px; }
+.hero-copy { display: grid; gap: 20px; max-width: 37rem; }
+.eyebrow, .kicker, .label {
+  font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.07em;
+  text-transform: uppercase; color: var(--muted);
+}
+h1 {
+  font-family: var(--display); font-weight: 850; font-stretch: 125%;
+  font-size: clamp(2.5rem, 7.6vw, 5.4rem); line-height: 0.9; letter-spacing: -0.005em;
+  text-transform: uppercase; margin: 0; text-wrap: balance;
+}
+.lede { font-size: clamp(1.2rem, 2.3vw, 1.5rem); line-height: 1.32; font-weight: 600; max-width: 28ch; text-wrap: balance; }
+.intro { color: var(--ink); max-width: 56ch; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  font: 600 0.9375rem/1 var(--body); padding: 13px 18px;
+  border: 1px solid var(--ink); border-radius: 2px;
+  color: var(--ink); background: transparent; text-decoration: none; cursor: pointer;
+}
+.btn:hover { background: color-mix(in srgb, var(--ink) 8%, transparent); text-decoration: none; }
+.btn.primary { background: var(--ink); color: var(--paper); }
+.btn.primary:hover { background: color-mix(in srgb, var(--ink) 86%, var(--paper)); }
+.hero-foot {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 20px;
+  font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.03em;
+}
+.seed { display: inline-flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+.textbtn {
+  font: 500 0.75rem/1.4 var(--mono); letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--accent); background: none; border: 0; border-bottom: 1px solid currentColor;
+  padding: 0; cursor: pointer;
+}
+
+/* Sections */
+.section { padding-block: clamp(56px, 8vw, 96px); border-bottom: 1px solid var(--rule); }
+.sec-head { display: grid; gap: 8px; margin-bottom: clamp(28px, 4vw, 44px); }
+h2 {
+  font-family: var(--display); font-weight: 800; font-stretch: 118%;
+  font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.05; letter-spacing: 0.02em;
+  text-transform: uppercase; margin: 0; text-wrap: balance;
+}
+.sec-note { color: var(--muted); max-width: var(--measure); }
+h3 { font-family: var(--display); font-weight: 800; font-stretch: 110%; line-height: 1.08; margin: 0; text-wrap: balance; }
+.points { margin: 0; padding-left: 1.15em; display: grid; gap: 8px; }
+.points li::marker { color: var(--contour-index); }
+.tags { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.02em; }
+.links { display: flex; flex-wrap: wrap; gap: 6px 20px; font-weight: 600; }
+
+/* Feature: BitMates */
+.feature {
+  display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 56px); padding-bottom: clamp(40px, 6vw, 64px);
+  border-bottom: 1px solid var(--rule); margin-bottom: clamp(40px, 6vw, 64px);
+}
+.feature-text { display: grid; gap: 14px; align-content: start; min-width: 0; }
+.feature-text h3 { font-size: clamp(1.8rem, 3.4vw, 2.5rem); }
+.feature-text > p { max-width: var(--measure); }
+.status {
+  align-self: start; min-width: 0;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 3px;
+  padding: 20px 22px 12px; font-family: var(--mono); font-size: 0.8125rem;
+}
+.status-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.status-head::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--contour-index); }
+.status dl { margin: 0; }
+.status .row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding-block: 10px; border-top: 1px dotted var(--rule); }
+.status dt { color: var(--muted); }
+.status dd { margin: 0; font-weight: 500; color: var(--ink); text-align: right; font-variant-numeric: tabular-nums; }
+
+/* Two major projects */
+.duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 5vw, 56px); }
+.proj { display: grid; gap: 14px; align-content: start; min-width: 0; }
+.proj h3 { font-size: clamp(1.5rem, 2.6vw, 1.85rem); }
+.plate { margin: 0 0 6px; display: grid; gap: 8px; }
+.plate canvas {
+  display: block; width: 100%; max-width: 100%; height: auto; aspect-ratio: 16 / 9;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 3px;
+}
+.plate figcaption { font-family: var(--mono); font-size: 0.6875rem; color: var(--muted); letter-spacing: 0.04em; }
+
+/* Smaller projects */
+.more-head { margin-top: clamp(48px, 7vw, 72px); padding-top: 28px; border-top: 1px solid var(--rule); margin-bottom: 22px; }
+.more { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px 32px; }
+.card { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.card h3 { font-size: 1.15rem; font-stretch: 106%; }
+.card p { font-size: 0.9375rem; }
+.also {
+  margin-top: 40px; padding-top: 24px; border-top: 1px dotted var(--rule);
+  display: grid; grid-template-columns: minmax(0, 180px) minmax(0, 1fr); gap: 10px 32px;
+}
+.also .points { font-size: 0.9375rem; gap: 6px; }
+
+/* Ledger: dates and places in the margin */
+.entry {
+  display: grid; grid-template-columns: minmax(0, 220px) minmax(0, 1fr); gap: 10px 40px;
+  padding-block: 28px; border-top: 1px solid var(--rule);
+}
+.entry:first-child { border-top: 0; padding-top: 0; }
+.when { display: grid; gap: 3px; align-content: start; font-family: var(--mono); font-size: 0.8125rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.when strong { color: var(--ink); font-weight: 500; }
+.what { display: grid; gap: 10px; min-width: 0; }
+.what h3 { font-size: 1.3rem; font-stretch: 106%; }
+.org { color: var(--muted); font-weight: 500; }
+
+/* Skills */
+.skills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px 40px; }
+.skill { display: grid; gap: 8px; align-content: start; min-width: 0; }
+
+/* Credentials */
+.creds { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 56px; }
+.creds ul { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 0; }
+.creds li { padding-block: 12px; border-top: 1px dotted var(--rule); display: grid; gap: 2px; }
+.creds li span { color: var(--muted); font-size: 0.9375rem; }
+
+/* Contact */
+.contact-in { display: grid; gap: 18px; }
+.email-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
+.email {
+  font-family: var(--mono); font-size: clamp(1rem, 2.6vw, 1.35rem); font-weight: 500;
+  user-select: all; overflow-wrap: anywhere;
+}
+.copied { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+
+.foot-in { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px; padding-block: 28px; font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+
+@media (max-width: 980px) {
+  .more { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 900px) {
+  .feature { grid-template-columns: 1fr; }
+  .skills { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 820px) {
+  .duo { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .entry { grid-template-columns: 1fr; }
+  .creds { grid-template-columns: 1fr; }
+  .also { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .more, .skills { grid-template-columns: 1fr; }
+}
+</style>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Dillon Krotz">
+<meta property="og:description" content="Software engineer, co-founder and CTO of BitMates, and U.S. Air Force veteran.">
+<meta property="og:url" content="https://krotzbotz.github.io/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2317212B'/%3E%3Cpath d='M16 7 26 24H6Z' fill='%23BB3E2A'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="mark" href="#top">Dillon Krotz</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#credentials">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="top">
+    <canvas id="terrain" aria-hidden="true"></canvas>
+    <div class="hero-fade" aria-hidden="true"></div>
+    <div class="wrap hero-in">
+      <div class="hero-copy">
+        <p class="eyebrow">Software engineer · U.S. Air Force veteran</p>
+        <h1>Dillon Krotz</h1>
+        <p class="lede">I build the servers, smart contracts, and generated worlds behind online games.</p>
+        <p class="intro">For seven years I was co-founder and CTO of BitMates, a blockchain MMORPG that earned $3.2M+ and hosted 5,000+ players at once. I also served six years in the U.S. Air Force, leading Minuteman III maintenance and test launch teams.</p>
+        <div class="actions">
+          <a class="btn primary" href="#contact">Get in touch</a>
+          <a class="btn" href="https://github.com/KrotzBotz" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+      <div class="hero-foot">
+        <span>41.9°N 88.3°W · Saint Charles, Illinois</span>
+        <span class="seed">Terrain from seed <span id="seed-value">42</span> <button class="textbtn" id="reseed" type="button">New terrain</button></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="work">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Selected work</h2>
+        <p class="sec-note">Games, platforms, and tools I've built since 2019, from production blockchain contracts to procedurally generated dungeons.</p>
+      </div>
+
+      <article class="feature">
+        <div class="feature-text">
+          <p class="kicker">Co-founder &amp; CTO · March 2019 – January 2026</p>
+          <h3>BitMates</h3>
+          <p>An Ethereum-based, free-to-play MMORPG with player-owned items, released on the web, Steam Early Access, and NFT marketplaces. I started as its only developer and built the whole platform.</p>
+          <ul class="points">
+            <li>A multithreaded Java MMO server (Java NIO, thread pools) with cross-server chat, trading, and parties, plus auto-scaling with zero-downtime migrations.</li>
+            <li>Solidity contracts for 10,000 ERC-721 characters, ERC-1155 items, an NFT marketplace with Dutch auctions and royalties, and staking.</li>
+            <li>A two-way bridge that turns game items into tokens and back, with signature checks and Merkle proofs to stop duplication.</li>
+            <li>PostgreSQL, Docker, Digital Ocean, and Google Cloud underneath; sign-in through Discord, Google, Facebook, and Apple; Steam API integration.</li>
+            <li>Hired and led 5+ engineers, set the code standards, reviewed every commit, and ran Agile sprints.</li>
+          </ul>
+          <p class="tags">Java · Solidity · C# · Unity · PostgreSQL · Docker · GCP</p>
+          <p class="links">
+            <a href="https://game.bitmates.io" target="_blank" rel="noopener">Play BitMates</a>
+            <a href="https://store.steampowered.com/app/3154690" target="_blank" rel="noopener">Steam page</a>
+            <a href="https://medium.com/@Bitmates" target="_blank" rel="noopener">Dev blog</a>
+          </p>
+        </div>
+        <aside class="status" aria-label="BitMates production figures">
+          <p class="status-head label">Production figures</p>
+          <dl>
+            <div class="row"><dt>Peak concurrent players</dt><dd>5,000+</dd></div>
+            <div class="row"><dt>Server uptime, 3+ years</dt><dd>99.9%</dd></div>
+            <div class="row"><dt>Server latency</dt><dd>&lt; 50 ms</dd></div>
+            <div class="row"><dt>NFT collection</dt><dd>10,000 at 0.07 ETH</dd></div>
+            <div class="row"><dt>Revenue</dt><dd>$3.2M+</dd></div>
+            <div class="row"><dt>Gas per transaction</dt><dd>180k → 85k</dd></div>
+            <div class="row"><dt>Playtime per active player</dt><dd>150+ hrs</dd></div>
+          </dl>
+        </aside>
+      </article>
+
+      <div class="duo">
+        <article class="proj">
+          <figure class="plate">
+            <canvas id="table-plate" role="img" aria-label="Illustration of a tabletop battle grid with hero and monster tokens, torchlight, and a fireball area template"></canvas>
+            <figcaption>Illustration · 5 ft squares · torchlight · 20 ft fireball template</figcaption>
+          </figure>
+          <p class="kicker">Personal project · November 2025 – present</p>
+          <h3>LoreKeeper</h3>
+          <p>A browser virtual tabletop for Dungeons &amp; Dragons 5th edition.</p>
+          <ul class="points">
+            <li>React, TypeScript, and Konva on the front end; Node services for the game server, WebSocket room routing, auth, and rooms, on Redis and PostgreSQL, deployed to Kubernetes.</li>
+            <li>A deterministic 5e rules engine with no runtime dependencies: 6 classes, 257 monsters, 46 spells, 123 magic items, and grid combat with cover, line of sight, and lighting.</li>
+            <li>Seeded city and world map generation: a TypeScript port of Watabou's city generator, and Azgaar's map pipeline drawn by a custom canvas renderer.</li>
+            <li>I set the architecture and product direction, direct AI coding agents through the build, and run playtests to decide each round of fixes.</li>
+          </ul>
+          <p class="tags">TypeScript · React · Node.js · Redis · PostgreSQL · Kubernetes</p>
+        </article>
+
+        <article class="proj">
+          <figure class="plate">
+            <canvas id="dungeon-plate" role="img" aria-label="Illustration of a generated dungeon floor plan with numbered rooms joined by corridors"></canvas>
+            <figcaption>Illustration · generated floor plan · seed 7</figcaption>
+          </figure>
+          <p class="kicker">Personal project · November 2024 – present</p>
+          <h3>DungeonGame</h3>
+          <p>An isometric dungeon MMO with a Unity 6 client and a C# game server that share one code library.</p>
+          <ul class="points">
+            <li>Seeded dungeon generation (rooms, corridors, monster encounters, props, lighting) that runs the same on the server and the client.</li>
+            <li>A generated overworld with towns, ruins, and a day-night cycle.</li>
+            <li>Custom real-time networking built for hundreds of concurrent players, with the backend in Docker containers.</li>
+            <li>A Dungeon Painter editor tool, plus command-line tools that print maps and render screenshots for visual checks.</li>
+          </ul>
+          <p class="tags">C# · Unity 6 · Docker</p>
+        </article>
+      </div>
+
+      <div class="more-head">
+        <p class="label">More projects</p>
+      </div>
+      <div class="more">
+        <article class="card">
+          <p class="kicker">October 2026</p>
+          <h3>MindScratch</h3>
+          <p>A gallery of generative art sketches drawn on plain canvas. New sketches join the gallery automatically, and every push deploys to GitHub Pages.</p>
+          <p class="tags">JavaScript · Canvas · Vite · GitHub Actions</p>
+          <p class="links"><a href="https://krotzbotz.github.io/MindScratch/" target="_blank" rel="noopener">See it live</a></p>
+        </article>
+        <article class="card">
+          <p class="kicker">2023 – 2024</p>
+          <h3>3D Physics Engine</h3>
+          <p>Collision detection built on bounding volume hierarchies, faster than the standard physics solutions it replaced, and integrated with Unity.</p>
+          <p class="tags">C# · Unity · BVH</p>
+        </article>
+        <article class="card">
+          <p class="kicker">June 2025</p>
+          <h3>Card Parser</h3>
+          <p>Reads Magic: The Gathering deck lists from Moxfield, pulls card data and art from the Scryfall API, and writes a description of each card's artwork with an LLM API.</p>
+          <p class="tags">C# · .NET 8 · REST APIs</p>
+        </article>
+        <article class="card">
+          <p class="kicker">May 2025</p>
+          <h3>ModHouse Haven</h3>
+          <p>An interior design portfolio site with a Node.js API, an admin panel for projects, cookie-session sign-in, Docker deployment, and Let's Encrypt SSL.</p>
+          <p class="tags">HTML · CSS · JavaScript · Node.js · Docker</p>
+        </article>
+      </div>
+
+      <div class="also">
+        <p class="label">Also</p>
+        <ul class="points">
+          <li>AI assistant workflows and ComfyUI image generation pipelines (2024 – present)</li>
+          <li>UDP networking and NAT hole punching for a Unity multiplayer game (2023)</li>
+          <li>A marketplace listing reader that drafts purchase offers with an LLM API, using Puppeteer (2025)</li>
+          <li>A car inventory scraper that drives Chrome over the DevTools Protocol (2026)</li>
+          <li>Advent of Code 2022 in Rust</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="experience">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Experience</h2>
+        <p class="sec-note">Ten years of hands-on technical work, seven of them building software.</p>
+      </div>
+      <div class="ledger">
+        <div class="entry">
+          <div class="when"><strong>Mar 2019 – Jan 2026</strong><span>Remote · Saint Charles, IL</span><span>41.9°N 88.3°W</span></div>
+          <div class="what">
+            <h3>Co-Founder &amp; Chief Technology Officer</h3>
+            <p class="org">BitMates LLC</p>
+            <ul class="points">
+              <li>Built the platform from the first line of code to $3.2M+ in revenue and 5,000+ concurrent players at 99.9% uptime.</li>
+              <li>Made every architecture decision and stayed about 70% hands-on while leading the engineering team.</li>
+              <li>Managed a $5k/month cloud budget and worked with TreasureDAO, marketplace vendors, and smart contract auditors.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="when"><strong>Jan 2022 – Mar 2023</strong><span>Malmstrom AFB, MT</span><span>47.5°N 111.2°W</span></div>
+          <div class="what">
+            <h3>Plans &amp; Scheduling NCOIC</h3>
+            <p class="org">U.S. Air Force</p>
+            <ul class="points">
+              <li>Led scheduling for Minuteman III ICBM test launch operations across 150 launch facilities.</li>
+              <li>Ran daily production meetings and analyzed maintenance data to head off mission delays.</li>
+              <li>Hit 100% of scheduled mission timelines.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="when"><strong>Mar 2019 – Jan 2022</strong><span>Vandenberg SFB, CA</span><span>34.7°N 120.6°W</span></div>
+          <div class="what">
+            <h3>Lead Test Launch Technician</h3>
+            <p class="org">U.S. Air Force</p>
+            <ul class="points">
+              <li>Directed teams of 6+ technicians preparing Minuteman III silos for live test launches.</li>
+              <li>Wrote troubleshooting procedures for Aerospace Ground Equipment that the unit adopted across the board.</li>
+              <li>Completed every assigned launch operation over three years with no failures or incidents.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="when"><strong>Nov 2016 – Mar 2019</strong><span>Minot AFB, ND</span><span>48.4°N 101.4°W</span></div>
+          <div class="what">
+            <h3>Electro-Mechanical Team Chief</h3>
+            <p class="org">U.S. Air Force</p>
+            <ul class="points">
+              <li>Supervised 40+ technicians maintaining electronic, security, and command and control systems at 150 launch facilities and 15 launch control centers.</li>
+              <li>Kept weapon system coding and targeting work compliant with USSTRATCOM directives.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="skills">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Skills</h2>
+      </div>
+      <div class="skills">
+        <div class="skill">
+          <p class="label">Languages &amp; frameworks</p>
+          <p>Java, C#, TypeScript, JavaScript, Solidity, SQL, Python, Rust, React, Node.js, HTML, CSS</p>
+        </div>
+        <div class="skill">
+          <p class="label">Servers &amp; distributed systems</p>
+          <p>Java NIO, multithreading, event-driven design, message queues, WebSockets, horizontal scaling, auto-scaling, REST APIs, OAuth 2.0, JWT</p>
+        </div>
+        <div class="skill">
+          <p class="label">Game development</p>
+          <p>Unity, MMO server design, client-server netcode over UDP and TCP, procedural generation, collision and physics</p>
+        </div>
+        <div class="skill">
+          <p class="label">Blockchain</p>
+          <p>Ethereum, ERC-721, ERC-1155, ERC-20, Hardhat, Ethers.js, Web3.js, Chainlink VRF, gas optimization</p>
+        </div>
+        <div class="skill">
+          <p class="label">Cloud &amp; data</p>
+          <p>Docker, Kubernetes, Linux, Google Cloud, Digital Ocean, PostgreSQL, Redis, Firestore, CI/CD</p>
+        </div>
+        <div class="skill">
+          <p class="label">Leadership</p>
+          <p>Hiring, mentoring, team training, Agile and Scrum, code review, technical writing, budgets</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="credentials">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Education &amp; service</h2>
+      </div>
+      <div class="creds">
+        <div>
+          <p class="label">Education</p>
+          <ul>
+            <li><strong>B.S., Information &amp; Computer Science</strong><span>Park University · Software Development concentration · expected 2026 · GPA 3.7</span></li>
+            <li><strong>Advanced IT certifications</strong><span>California Institute of Arts &amp; Technology · in progress since 2025</span></li>
+            <li><strong>A.A.S.</strong><span>College of DuPage · 2014 · GPA 3.5</span></li>
+          </ul>
+        </div>
+        <div>
+          <p class="label">Military service</p>
+          <ul>
+            <li><strong>U.S. Air Force, 2016 – 2023</strong><span>Honorable discharge</span></li>
+            <li><strong>AFSC 2M0X3</strong><span>Missile &amp; Space Systems Maintenance</span></li>
+            <li><strong>Airman Leadership School</strong><span>USAF leadership training</span></li>
+            <li><strong>Secret security clearance</strong><span>Held during service</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="wrap contact-in">
+      <h2>Contact</h2>
+      <p class="sec-note">Email is the quickest way to reach me. I'm based in Saint Charles, Illinois, and available to travel.</p>
+      <div class="email-row">
+        <span class="email" id="email">dillonkrotz22@gmail.com</span>
+        <button class="btn" id="copy-email" type="button">Copy email</button>
+        <span class="copied" id="copy-status" role="status" aria-live="polite"></span>
+      </div>
+      <p class="links"><a href="https://github.com/KrotzBotz" target="_blank" rel="noopener">github.com/KrotzBotz</a></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <span>Dillon Krotz</span>
+    <span>41.9°N 88.3°W</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  // Seeded randomness (mulberry32) and value noise for the generated graphics.
+  function mulberry32(a) {
+    return function () {
+      a |= 0; a = (a + 0x6D2B79F5) | 0;
+      var t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function hash2(x, y, s) {
+    var h = (Math.imul(x, 374761393) + Math.imul(y, 668265263) + Math.imul(s, 982451653)) | 0;
+    h = Math.imul(h ^ (h >>> 13), 1274126177);
+    h ^= h >>> 16;
+    return (h >>> 0) / 4294967296;
+  }
+  function vnoise(x, y, s) {
+    var xi = Math.floor(x), yi = Math.floor(y);
+    var xf = x - xi, yf = y - yi;
+    var u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf);
+    var a = hash2(xi, yi, s), b = hash2(xi + 1, yi, s), c = hash2(xi, yi + 1, s), d = hash2(xi + 1, yi + 1, s);
+    return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
+  }
+  function fbm(x, y, s) {
+    var f = 0, amp = 0.5, fr = 1, norm = 0;
+    for (var o = 0; o < 5; o++) {
+      f += amp * vnoise(x * fr, y * fr, s + o * 101);
+      norm += amp; amp *= 0.5; fr *= 2.03;
+    }
+    return f / norm;
+  }
+
+  function tokens() {
+    var cs = getComputedStyle(document.documentElement);
+    var g = function (n) { return cs.getPropertyValue(n).trim(); };
+    return {
+      paper: g("--paper"), surface: g("--surface"), ink: g("--ink"), muted: g("--muted"),
+      rule: g("--rule"), contour: g("--contour"), index: g("--contour-index"),
+      accent: g("--accent"), marker: g("--marker")
+    };
+  }
+
+  function fit(canvas) {
+    var r = canvas.getBoundingClientRect();
+    if (r.width < 2 || r.height < 2) return null;
+    var dpr = Math.min(2, window.devicePixelRatio || 1);
+    canvas.width = Math.round(r.width * dpr);
+    canvas.height = Math.round(r.height * dpr);
+    var ctx = canvas.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { ctx: ctx, w: r.width, h: r.height };
+  }
+
+  // Opening: contour map, every fifth line drawn as an index contour.
+  var terrainSeed = 42;
+  function marchingSquares(ctx, F, cols, rows, cell, level) {
+    ctx.beginPath();
+    for (var j = 0; j < rows - 1; j++) {
+      for (var i = 0; i < cols - 1; i++) {
+        var a = F[j * cols + i], b = F[j * cols + i + 1], c = F[(j + 1) * cols + i + 1], d = F[(j + 1) * cols + i];
+        var idx = (a > level ? 8 : 0) | (b > level ? 4 : 0) | (c > level ? 2 : 0) | (d > level ? 1 : 0);
+        if (idx === 0 || idx === 15) continue;
+        var x = i * cell, y = j * cell;
+        var top = [x + cell * (level - a) / (b - a), y];
+        var right = [x + cell, y + cell * (level - b) / (c - b)];
+        var bottom = [x + cell * (level - d) / (c - d), y + cell];
+        var left = [x, y + cell * (level - a) / (d - a)];
+        var seg = function (p, q) { ctx.moveTo(p[0], p[1]); ctx.lineTo(q[0], q[1]); };
+        switch (idx) {
+          case 1: case 14: seg(left, bottom); break;
+          case 2: case 13: seg(bottom, right); break;
+          case 3: case 12: seg(left, right); break;
+          case 4: case 11: seg(top, right); break;
+          case 5: seg(left, top); seg(bottom, right); break;
+          case 6: case 9: seg(top, bottom); break;
+          case 7: case 8: seg(left, top); break;
+          case 10: seg(top, right); seg(left, bottom); break;
+        }
+      }
+    }
+    ctx.stroke();
+  }
+  function drawTerrain() {
+    var canvas = document.getElementById("terrain");
+    var f = fit(canvas); if (!f) return;
+    var ctx = f.ctx, w = f.w, h = f.h, t = tokens();
+    ctx.clearRect(0, 0, w, h);
+    var cell = 6, cols = Math.ceil(w / cell) + 2, rows = Math.ceil(h / cell) + 2;
+    var F = new Float32Array(cols * rows), sc = 1 / 300, min = 1, max = 0;
+    var peak = { v: -1, i: 0, j: 0 };
+    for (var j = 0; j < rows; j++) {
+      for (var i = 0; i < cols; i++) {
+        var v = fbm(i * cell * sc + 3.1, j * cell * sc + 7.7, terrainSeed);
+        F[j * cols + i] = v;
+        if (v < min) min = v;
+        if (v > max) max = v;
+        if (i > cols * 0.58 && i < cols - 6 && j > 6 && j < rows - 10 && v > peak.v) peak = { v: v, i: i, j: j };
+      }
+    }
+    var n = 24;
+    for (var k = 1; k < n; k++) {
+      var level = min + (max - min) * k / n;
+      var isIndex = k % 5 === 0;
+      ctx.strokeStyle = isIndex ? t.index : t.contour;
+      ctx.lineWidth = isIndex ? 1.25 : 0.7;
+      marchingSquares(ctx, F, cols, rows, cell, level);
+    }
+    // Summit marker with a spot height.
+    var px = peak.i * cell, py = peak.j * cell, s = 6;
+    ctx.beginPath();
+    ctx.moveTo(px, py - s); ctx.lineTo(px + s * 0.9, py + s * 0.6); ctx.lineTo(px - s * 0.9, py + s * 0.6); ctx.closePath();
+    ctx.fillStyle = t.marker; ctx.fill();
+    ctx.font = '500 11px "IBM Plex Mono", ui-monospace, monospace';
+    ctx.fillStyle = t.muted; ctx.textBaseline = "middle";
+    var elev = Math.round(400 + (peak.v - min) / (max - min || 1) * 1400);
+    ctx.fillText(elev.toLocaleString("en-US") + " m", px + 10, py);
+  }
+
+  // LoreKeeper plate: a 16 by 9 battle grid of 5 ft squares.
+  function drawTable() {
+    var canvas = document.getElementById("table-plate");
+    var f = fit(canvas); if (!f) return;
+    var ctx = f.ctx, w = f.w, h = f.h, t = tokens();
+    var cols = 16, S = w / cols, rows = 9;
+    ctx.fillStyle = t.surface; ctx.fillRect(0, 0, w, h);
+    var cx = function (g) { return (g + 0.5) * S; };
+
+    // Torchlight carried by the fighter: bright 20 ft, dim 20 ft beyond.
+    var lx = cx(6), ly = cx(4);
+    var glow = ctx.createRadialGradient(lx, ly, S * 4, lx, ly, S * 8);
+    glow.addColorStop(0, t.paper); glow.addColorStop(1, t.surface);
+    ctx.fillStyle = glow; ctx.fillRect(0, 0, w, h);
+
+    ctx.strokeStyle = t.rule; ctx.lineWidth = 1; ctx.beginPath();
+    for (var x = 0; x <= cols; x++) { var gx = Math.round(x * S) + 0.5; ctx.moveTo(gx, 0); ctx.lineTo(gx, h); }
+    for (var y = 0; y <= rows; y++) { var gy = Math.round(y * S) + 0.5; ctx.moveTo(0, gy); ctx.lineTo(w, gy); }
+    ctx.stroke();
+
+    var walls = [[8,0],[8,1],[8,2],[8,3],[8,5],[8,6],[9,6],[10,6],[11,6],[13,6],[14,6],[15,6],[3,1],[3,8]];
+    ctx.fillStyle = t.ink;
+    walls.forEach(function (p) { ctx.fillRect(p[0] * S, p[1] * S, S + 0.5, S + 0.5); });
+
+    // 20 ft radius fireball template on a grid intersection.
+    var fx = 12 * S, fy = 3 * S, fr = 4 * S;
+    ctx.save();
+    ctx.globalAlpha = 0.14; ctx.fillStyle = t.marker;
+    ctx.beginPath(); ctx.arc(fx, fy, fr, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+    ctx.save();
+    ctx.setLineDash([5, 4]); ctx.lineWidth = 1.5; ctx.strokeStyle = t.marker;
+    ctx.beginPath(); ctx.arc(fx, fy, fr, 0, Math.PI * 2); ctx.stroke();
+    ctx.restore();
+    ctx.font = '500 ' + Math.max(10, Math.round(S * 0.36)) + 'px "IBM Plex Mono", ui-monospace, monospace';
+    ctx.fillStyle = t.marker; ctx.textBaseline = "middle";
+    ctx.fillText("20 ft", fx + 2, fy - fr - 2 > S * 0.4 ? fy - fr - 6 : fy + fr - S * 0.5);
+
+    // Wizard's planned move, 30 ft.
+    var path = [[2,7],[3,6],[4,6],[5,5],[6,5],[7,5]];
+    ctx.save();
+    ctx.setLineDash([4, 4]); ctx.lineWidth = 2; ctx.strokeStyle = t.accent;
+    ctx.beginPath();
+    path.forEach(function (p, i) { if (i === 0) ctx.moveTo(cx(p[0]), cx(p[1])); else ctx.lineTo(cx(p[0]), cx(p[1])); });
+    ctx.stroke();
+    ctx.restore();
+    var end = path[path.length - 1];
+    ctx.beginPath(); ctx.arc(cx(end[0]), cx(end[1]), S * 0.16, 0, Math.PI * 2); ctx.fillStyle = t.accent; ctx.fill();
+
+    function token(gx, gy, size, fill, letter) {
+      var r = size * S * 0.4, x0 = gx * S + size * S / 2, y0 = gy * S + size * S / 2;
+      ctx.beginPath(); ctx.arc(x0, y0, r, 0, Math.PI * 2);
+      ctx.fillStyle = fill; ctx.fill();
+      ctx.lineWidth = 2; ctx.strokeStyle = t.paper; ctx.stroke();
+      ctx.fillStyle = t.paper; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      ctx.font = '600 ' + Math.round(r * 0.95) + 'px "Public Sans", system-ui, sans-serif';
+      ctx.fillText(letter, x0, y0 + 0.5);
+      ctx.textAlign = "start";
+    }
+    token(6, 4, 1, t.accent, "F");
+    token(4, 3, 1, t.accent, "C");
+    token(2, 7, 1, t.accent, "W");
+    token(11, 2, 1, t.marker, "G");
+    token(13, 4, 1, t.marker, "G");
+    token(10, 4, 1, t.marker, "G");
+    token(14, 0, 2, t.marker, "O");
+  }
+
+  // DungeonGame plate: rooms placed from a seed and joined by corridors.
+  function drawDungeon() {
+    var canvas = document.getElementById("dungeon-plate");
+    var f = fit(canvas); if (!f) return;
+    var ctx = f.ctx, w = f.w, h = f.h, t = tokens(), rnd = mulberry32(7);
+    var T = Math.max(6, Math.floor(w / 50)), cols = Math.floor(w / T), rows = Math.floor(h / T);
+    var ox = (w - cols * T) / 2, oy = (h - rows * T) / 2;
+    var g = new Uint8Array(cols * rows), rooms = [];
+    for (var k = 0; k < 400 && rooms.length < 9; k++) {
+      var rw = 4 + Math.floor(rnd() * 6), rh = 3 + Math.floor(rnd() * 4);
+      var rx = 1 + Math.floor(rnd() * (cols - rw - 2)), ry = 1 + Math.floor(rnd() * (rows - rh - 2));
+      var hit = rooms.some(function (r) { return rx < r.x + r.w + 2 && rx + rw + 2 > r.x && ry < r.y + r.h + 2 && ry + rh + 2 > r.y; });
+      if (!hit) rooms.push({ x: rx, y: ry, w: rw, h: rh });
+    }
+    function carve(x, y) { if (x > 0 && y > 0 && x < cols - 1 && y < rows - 1) g[y * cols + x] = 1; }
+    rooms.forEach(function (r) { for (var y = r.y; y < r.y + r.h; y++) for (var x = r.x; x < r.x + r.w; x++) carve(x, y); });
+    var order = rooms.slice().sort(function (a, b) { return (a.x + a.w / 2) - (b.x + b.w / 2); });
+    for (var i = 1; i < order.length; i++) {
+      var A = order[i - 1], B = order[i];
+      var ax = Math.floor(A.x + A.w / 2), ay = Math.floor(A.y + A.h / 2), bx = Math.floor(B.x + B.w / 2), by = Math.floor(B.y + B.h / 2);
+      var x, y;
+      if (rnd() < 0.5) {
+        for (x = Math.min(ax, bx); x <= Math.max(ax, bx); x++) carve(x, ay);
+        for (y = Math.min(ay, by); y <= Math.max(ay, by); y++) carve(bx, y);
+      } else {
+        for (y = Math.min(ay, by); y <= Math.max(ay, by); y++) carve(ax, y);
+        for (x = Math.min(ax, bx); x <= Math.max(ax, bx); x++) carve(x, by);
+      }
+    }
+    ctx.fillStyle = t.surface; ctx.fillRect(0, 0, w, h);
+    ctx.strokeStyle = t.rule; ctx.lineWidth = 0.6;
+    for (var yy = 0; yy < rows; yy++) {
+      for (var xx = 0; xx < cols; xx++) {
+        var px = ox + xx * T, py = oy + yy * T;
+        if (g[yy * cols + xx]) {
+          ctx.fillStyle = t.paper; ctx.fillRect(px, py, T, T);
+          ctx.strokeRect(px + 0.3, py + 0.3, T - 0.6, T - 0.6);
+        } else {
+          var near = false;
+          for (var dy = -1; dy <= 1 && !near; dy++) for (var dx = -1; dx <= 1; dx++) {
+            var nx = xx + dx, ny = yy + dy;
+            if (nx >= 0 && ny >= 0 && nx < cols && ny < rows && g[ny * cols + nx]) { near = true; break; }
+          }
+          if (near) { ctx.fillStyle = t.ink; ctx.fillRect(px, py, T + 0.5, T + 0.5); }
+        }
+      }
+    }
+    ctx.font = '500 ' + Math.max(9, Math.round(T * 0.95)) + 'px "IBM Plex Mono", ui-monospace, monospace';
+    ctx.fillStyle = t.muted; ctx.textBaseline = "top";
+    order.forEach(function (r, n) { ctx.fillText(String(n + 1), ox + r.x * T + 2, oy + r.y * T + 2); });
+    function dot(x, y, col, rad) { ctx.beginPath(); ctx.arc(ox + (x + 0.5) * T, oy + (y + 0.5) * T, rad, 0, Math.PI * 2); ctx.fillStyle = col; ctx.fill(); }
+    if (order.length) { var r0 = order[0]; dot(Math.floor(r0.x + r0.w / 2), Math.floor(r0.y + r0.h / 2), t.accent, T * 0.45); }
+    order.forEach(function (r, n) {
+      if (n < 2 || n % 2) return;
+      var count = 1 + Math.floor(rnd() * 3);
+      for (var m = 0; m < count; m++) dot(r.x + 1 + Math.floor(rnd() * (r.w - 2)), r.y + 1 + Math.floor(rnd() * (r.h - 2)), t.marker, T * 0.32);
+    });
+  }
+
+  function drawAll() { drawTerrain(); drawTable(); drawDungeon(); }
+  var pending = 0;
+  function schedule() { cancelAnimationFrame(pending); pending = requestAnimationFrame(drawAll); }
+
+  drawAll();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(schedule);
+  if (window.ResizeObserver) {
+    var ro = new ResizeObserver(schedule);
+    ["terrain", "table-plate", "dungeon-plate"].forEach(function (id) { ro.observe(document.getElementById(id)); });
+  } else {
+    window.addEventListener("resize", schedule);
+  }
+  var mq = window.matchMedia("(prefers-color-scheme: dark)");
+  if (mq.addEventListener) mq.addEventListener("change", schedule);
+  new MutationObserver(schedule).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+  document.getElementById("reseed").addEventListener("click", function () {
+    var next = terrainSeed;
+    while (next === terrainSeed) next = 1 + Math.floor(Math.random() * 9999);
+    terrainSeed = next;
+    document.getElementById("seed-value").textContent = String(terrainSeed);
+    drawTerrain();
+  });
+
+  var copyBtn = document.getElementById("copy-email"), status = document.getElementById("copy-status"), timer = 0;
+  copyBtn.addEventListener("click", function () {
+    var text = document.getElementById("email").textContent.trim();
+    function done(msg) { status.textContent = msg; clearTimeout(timer); timer = setTimeout(function () { status.textContent = ""; }, 3000); }
+    function selectIt() {
+      var range = document.createRange(); range.selectNodeContents(document.getElementById("email"));
+      var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      done("Selected. Press Ctrl+C or ⌘C to copy.");
+    }
+    try {
+      navigator.clipboard.writeText(text).then(function () { done("Copied"); }, selectIt);
+    } catch (e) { selectIt(); }
+  });
+})();
+</script>
+</body>
+</html>
