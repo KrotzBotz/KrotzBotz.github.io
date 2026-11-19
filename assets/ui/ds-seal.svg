@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- DungeonSmithy: the DM's wax seal (the seal on the table's DM scroll), an anvil and raised hammer pressed into it. -->
+  <g fill="#8a2b1f"><circle cx="57.50" cy="32.00" r="5.2"/><circle cx="54.97" cy="43.06" r="5.2"/><circle cx="47.90" cy="51.94" r="5.2"/><circle cx="37.67" cy="56.86" r="5.2"/><circle cx="26.33" cy="56.86" r="5.2"/><circle cx="16.10" cy="51.94" r="5.2"/><circle cx="9.03" cy="43.06" r="5.2"/><circle cx="6.50" cy="32.00" r="5.2"/><circle cx="9.03" cy="20.94" r="5.2"/><circle cx="16.10" cy="12.06" r="5.2"/><circle cx="26.33" cy="7.14" r="5.2"/><circle cx="37.67" cy="7.14" r="5.2"/><circle cx="47.90" cy="12.06" r="5.2"/><circle cx="54.97" cy="20.94" r="5.2"/><circle cx="32" cy="32" r="26"/></g>
+  <circle cx="32" cy="32" r="22.5" fill="none" stroke="#a8442f" stroke-width="1" opacity="0.6"/>
+  <circle cx="32" cy="32" r="20.5" fill="none" stroke="#5e1a12" stroke-width="2"/>
+  <g fill="#e7d8b4" transform="translate(32 32) scale(0.64) translate(-32 -29.07)">
+    <path d="M7 29.5 Q13 28 18 28 H55 V35 H45 Q40.5 36.5 40.5 41 L47 47.5 V52 H17 V47.5 L23.5 41 Q23.5 36.5 19 35 H18 Q11 34 7 29.5 Z"/>
+    <g transform="rotate(40 42 13)"><rect x="31" y="8" width="22" height="10" rx="1.6"/><rect x="40.4" y="17" width="3.2" height="17" rx="1.6"/></g>
+  </g>
+</svg>

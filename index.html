@@ -4,848 +4,708 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Dillon Krotz</title>
-<meta name="description" content="Dillon Krotz: software engineer, co-founder and CTO of BitMates, and U.S. Air Force veteran.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
-<style>
-/* Layout: a survey sheet. A generated contour map runs under the opening,
-   then one column of work, with dates and map coordinates in a left margin. */
-:root {
-  --paper: #F1F3EF;
-  --surface: #E4E9E3;
-  --ink: #17212B;
-  --muted: #56626C;
-  --rule: #CAD2CB;
-  --contour: #BE9C76;
-  --contour-index: #8C6942;
-  --accent: #1F5C99;
-  --marker: #BB3E2A;
-  --floor: #FAFBF8;
-  --wall: #17212B;
-  --display: "Archivo", "Arial Narrow", system-ui, sans-serif;
-  --body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --measure: 64ch;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #10151A;
-    --surface: #182027;
-    --ink: #E3E7E2;
-    --muted: #9AA5AD;
-    --rule: #2B353E;
-    --contour: #6A5946;
-    --contour-index: #A6896A;
-    --accent: #82B7EA;
-    --marker: #EC7B63;
-    --floor: #26303A;
-    --wall: #8C98A2;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --paper: #10151A;
-  --surface: #182027;
-  --ink: #E3E7E2;
-  --muted: #9AA5AD;
-  --rule: #2B353E;
-  --contour: #6A5946;
-  --contour-index: #A6896A;
-  --accent: #82B7EA;
-  --marker: #EC7B63;
-  --floor: #26303A;
-  --wall: #8C98A2;
-  color-scheme: dark;
-}
-
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-body {
-  margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font: 400 1rem/1.6 var(--body);
-  -webkit-font-smoothing: antialiased;
-}
-a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-a:hover { text-decoration-thickness: 2px; }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
-p { margin: 0; }
-
-.wrap {
-  max-width: 1120px;
-  margin-inline: auto;
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
-}
-
-/* Top bar */
-.topbar { border-bottom: 1px solid var(--rule); background: var(--paper); position: relative; z-index: 2; }
-.topbar-in { display: flex; align-items: center; justify-content: space-between; gap: 10px 24px; flex-wrap: wrap; padding-block: 14px; }
-.mark {
-  font-family: var(--display); font-weight: 800; font-stretch: 125%;
-  font-size: 1rem; letter-spacing: 0.04em; text-transform: uppercase;
-  color: var(--ink); text-decoration: none;
-}
-.nav { display: flex; flex-wrap: wrap; gap: 4px 22px; font-family: var(--mono); font-size: 0.8125rem; letter-spacing: 0.06em; text-transform: uppercase; }
-.nav a { color: var(--muted); text-decoration: none; }
-.nav a:hover { color: var(--ink); }
-
-/* Opening */
-.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--rule); }
-#terrain { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.hero-fade {
-  position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(90deg,
-    var(--paper) 0%,
-    color-mix(in srgb, var(--paper) 93%, transparent) 36%,
-    color-mix(in srgb, var(--paper) 30%, transparent) 68%,
-    color-mix(in srgb, var(--paper) 0%, transparent) 100%);
-}
-@media (max-width: 760px) {
-  .hero-fade { background: color-mix(in srgb, var(--paper) 84%, transparent); }
-}
-.hero-in { position: relative; display: grid; gap: 40px; padding-block: clamp(48px, 8vw, 88px) 22px; }
-.hero-copy { display: grid; gap: 20px; max-width: 37rem; }
-.eyebrow, .kicker, .label {
-  font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.07em;
-  text-transform: uppercase; color: var(--muted);
-}
-h1 {
-  font-family: var(--display); font-weight: 850; font-stretch: 125%;
-  font-size: clamp(2.5rem, 7.6vw, 5.4rem); line-height: 0.9; letter-spacing: -0.005em;
-  text-transform: uppercase; margin: 0; text-wrap: balance;
-}
-.lede { font-size: clamp(1.2rem, 2.3vw, 1.5rem); line-height: 1.32; font-weight: 600; max-width: 28ch; text-wrap: balance; }
-.intro { color: var(--ink); max-width: 56ch; }
-.actions { display: flex; flex-wrap: wrap; gap: 12px; }
-.btn {
-  display: inline-flex; align-items: center; justify-content: center;
-  font: 600 0.9375rem/1 var(--body); padding: 13px 18px;
-  border: 1px solid var(--ink); border-radius: 2px;
-  color: var(--ink); background: transparent; text-decoration: none; cursor: pointer;
-}
-.btn:hover { background: color-mix(in srgb, var(--ink) 8%, transparent); text-decoration: none; }
-.btn.primary { background: var(--ink); color: var(--paper); }
-.btn.primary:hover { background: color-mix(in srgb, var(--ink) 86%, var(--paper)); }
-.hero-foot {
-  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 20px;
-  font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.03em;
-}
-.seed { display: inline-flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
-.textbtn {
-  font: 500 0.75rem/1.4 var(--mono); letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--accent); background: none; border: 0; border-bottom: 1px solid currentColor;
-  padding: 0; cursor: pointer;
-}
-
-/* Sections */
-.section { padding-block: clamp(56px, 8vw, 96px); border-bottom: 1px solid var(--rule); }
-.sec-head { display: grid; gap: 8px; margin-bottom: clamp(28px, 4vw, 44px); }
-h2 {
-  font-family: var(--display); font-weight: 800; font-stretch: 118%;
-  font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.05; letter-spacing: 0.02em;
-  text-transform: uppercase; margin: 0; text-wrap: balance;
-}
-.sec-note { color: var(--muted); max-width: var(--measure); }
-h3 { font-family: var(--display); font-weight: 800; font-stretch: 110%; line-height: 1.08; margin: 0; text-wrap: balance; }
-.points { margin: 0; padding-left: 1.15em; display: grid; gap: 8px; }
-.points li::marker { color: var(--contour-index); }
-.tags { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.02em; }
-.links { display: flex; flex-wrap: wrap; gap: 6px 20px; font-weight: 600; }
-
-/* Feature: BitMates */
-.feature {
-  display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
-  gap: clamp(28px, 4vw, 56px); padding-bottom: clamp(40px, 6vw, 64px);
-  border-bottom: 1px solid var(--rule); margin-bottom: clamp(40px, 6vw, 64px);
-}
-.feature-text { display: grid; gap: 14px; align-content: start; min-width: 0; }
-.feature-text h3 { font-size: clamp(1.8rem, 3.4vw, 2.5rem); }
-.feature-text > p { max-width: var(--measure); }
-.status {
-  align-self: start; min-width: 0;
-  background: var(--surface); border: 1px solid var(--rule); border-radius: 3px;
-  padding: 20px 22px 12px; font-family: var(--mono); font-size: 0.8125rem;
-}
-.status-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-.status-head::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--contour-index); }
-.status dl { margin: 0; }
-.status .row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding-block: 10px; border-top: 1px dotted var(--rule); }
-.status dt { color: var(--muted); }
-.status dd { margin: 0; font-weight: 500; color: var(--ink); text-align: right; font-variant-numeric: tabular-nums; }
-
-/* Two major projects */
-.duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 5vw, 56px); }
-.proj { display: grid; gap: 14px; align-content: start; min-width: 0; }
-.proj h3 { font-size: clamp(1.5rem, 2.6vw, 1.85rem); }
-.plate { margin: 0 0 6px; display: grid; gap: 8px; }
-.plate canvas {
-  display: block; width: 100%; max-width: 100%; height: auto; aspect-ratio: 16 / 9;
-  background: var(--surface); border: 1px solid var(--rule); border-radius: 3px;
-}
-.plate figcaption { font-family: var(--mono); font-size: 0.6875rem; color: var(--muted); letter-spacing: 0.04em; }
-
-/* Smaller projects */
-.more-head { margin-top: clamp(48px, 7vw, 72px); padding-top: 28px; border-top: 1px solid var(--rule); margin-bottom: 22px; }
-.more { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px 32px; }
-.card { display: grid; gap: 8px; align-content: start; min-width: 0; }
-.card h3 { font-size: 1.15rem; font-stretch: 106%; }
-.card p { font-size: 0.9375rem; }
-.also {
-  margin-top: 40px; padding-top: 24px; border-top: 1px dotted var(--rule);
-  display: grid; grid-template-columns: minmax(0, 180px) minmax(0, 1fr); gap: 10px 32px;
-}
-.also .points { font-size: 0.9375rem; gap: 6px; }
-
-/* Ledger: dates and places in the margin */
-.entry {
-  display: grid; grid-template-columns: minmax(0, 220px) minmax(0, 1fr); gap: 10px 40px;
-  padding-block: 28px; border-top: 1px solid var(--rule);
-}
-.entry:first-child { border-top: 0; padding-top: 0; }
-.when { display: grid; gap: 3px; align-content: start; font-family: var(--mono); font-size: 0.8125rem; color: var(--muted); font-variant-numeric: tabular-nums; }
-.when strong { color: var(--ink); font-weight: 500; }
-.what { display: grid; gap: 10px; min-width: 0; }
-.what h3 { font-size: 1.3rem; font-stretch: 106%; }
-.org { color: var(--muted); font-weight: 500; }
-
-/* Skills */
-.skills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px 40px; }
-.skill { display: grid; gap: 8px; align-content: start; min-width: 0; }
-
-/* Credentials */
-.creds { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 56px; }
-.creds ul { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 0; }
-.creds li { padding-block: 12px; border-top: 1px dotted var(--rule); display: grid; gap: 2px; }
-.creds li span { color: var(--muted); font-size: 0.9375rem; }
-
-/* Contact */
-.contact-in { display: grid; gap: 18px; }
-.email-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
-.email {
-  font-family: var(--mono); font-size: clamp(1rem, 2.6vw, 1.35rem); font-weight: 500;
-  user-select: all; overflow-wrap: anywhere;
-}
-.copied { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
-
-.foot-in { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px; padding-block: 28px; font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
-
-@media (max-width: 980px) {
-  .more { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 900px) {
-  .feature { grid-template-columns: 1fr; }
-  .skills { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 820px) {
-  .duo { grid-template-columns: 1fr; }
-}
-@media (max-width: 720px) {
-  .entry { grid-template-columns: 1fr; }
-  .creds { grid-template-columns: 1fr; }
-  .also { grid-template-columns: 1fr; }
-}
-@media (max-width: 560px) {
-  .more, .skills { grid-template-columns: 1fr; }
-}
-</style>
+<meta name="description" content="Dillon Krotz is a full-stack online game developer: BitMates, DungeonSmithy and DungeonGame.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Dillon Krotz">
-<meta property="og:description" content="Software engineer, co-founder and CTO of BitMates, and U.S. Air Force veteran.">
-<meta property="og:url" content="https://krotzbotz.github.io/">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2317212B'/%3E%3Cpath d='M16 7 26 24H6Z' fill='%23BB3E2A'/%3E%3C/svg%3E">
+<meta property="og:description" content="Full-stack online game developer. BitMates, DungeonSmithy and DungeonGame.">
+<meta property="og:url" content="https://krotz.dev/">
+<meta property="og:image" content="https://krotz.dev/assets/og.jpg">
+<link rel="canonical" href="https://krotz.dev/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FAFAF8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231F1F1D'/%3E%3Cpath d='M7 8h6.5c5 0 8 3 8 8s-3 8-8 8H7z' fill='none' stroke='%23FFFFFF' stroke-width='3'/%3E%3Cpath d='M25 8v16' stroke='%23FFFFFF' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Rubik:wght@400;500;600&display=swap">
+<style>
+/* Layout: neutral page, colourful work. About 60% light neutrals, 30% charcoal
+   and 10% one accent (buttons and links only), so the game art carries the
+   colour. Body text stays near 65 characters wide on an 8px spacing scale. */
+:root {
+  --bg: #FAFAF8;
+  --alt: #F0EFEB;
+  --card: #FFFFFF;
+  --line: #E0DED7;
+  --ink: #222220;
+  --soft: #5C5B56;
+  --dark: #1F1F1D;
+  --on-dark: #F2F1ED;
+  --on-dark-soft: #B9B7B0;
+  --accent: #A8362B;
+  --accent-ink: #96291F;
+  --title: "Cinzel", Georgia, serif;
+  --body: "Rubik", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --gl: max(20px, env(safe-area-inset-left, 0px));
+  --gr: max(20px, env(safe-area-inset-right, 0px));
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1.0625rem/1.6 var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, video { display: block; max-width: 100%; }
+p { margin: 0; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+h1, h2, h3 { margin: 0; line-height: 1.15; text-wrap: balance; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+.wrap { max-width: 1120px; margin-inline: auto; padding-left: var(--gl); padding-right: var(--gr); }
+.px { image-rendering: pixelated; }
+
+/* Top bar */
+.top { position: fixed; inset: 0 0 auto 0; z-index: 50; background: rgba(250, 250, 248, .93); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); padding-top: env(safe-area-inset-top, 0px); }
+.top-in { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; }
+.top .name { font: 700 1.1rem/1 var(--title); letter-spacing: .04em; text-decoration: none; white-space: nowrap; color: var(--ink); }
+.top nav { display: flex; align-items: center; gap: 4px; }
+.top nav a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 500; font-size: .97rem; text-decoration: none; padding: 0 12px; border-radius: 8px; color: var(--soft); white-space: nowrap; }
+.top nav a:hover { color: var(--ink); }
+.top nav a.cta { min-height: 36px; margin-left: 8px; background: var(--accent); color: #fff; font-weight: 600; }
+.top nav a.cta:hover { background: var(--accent-ink); color: #fff; }
+@media (max-width: 640px) { .top nav a { padding: 0 8px; font-size: .92rem; } .top nav a.wide-only { display: none; } .top .name { font-size: 1rem; } }
+@media (max-width: 430px) { .top nav a.mid-only { display: none; } }
+
+/* Buttons: the accent appears here and on links, nowhere else */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; cursor: pointer; text-decoration: none; font-weight: 600; font-size: 1rem; line-height: 1; padding: 0 20px; border-radius: 8px; border: 1px solid var(--accent); background: var(--accent); color: #fff; transition: background-color .15s, border-color .15s; }
+.btn:hover { background: var(--accent-ink); border-color: var(--accent-ink); }
+.btn.ghost { background: transparent; border-color: rgba(255, 255, 255, .45); color: var(--on-dark); }
+.btn.ghost:hover { background: rgba(255, 255, 255, .12); border-color: rgba(255, 255, 255, .7); }
+.row { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* Charcoal panel for text over art, and a plain frame for pictures */
+.title-plate { background: rgba(31, 31, 29, .9); border: 1px solid rgba(255, 255, 255, .16); border-radius: 12px; color: var(--on-dark); }
+.plate { background: #111; border: 1px solid rgba(0, 0, 0, .16); border-radius: 10px; overflow: hidden; box-shadow: 0 1px 2px rgba(0, 0, 0, .06), 0 16px 32px -18px rgba(0, 0, 0, .4); }
+.plate > * { width: 100%; height: auto; }
+
+/* Opening */
+.hero { position: relative; min-height: min(100svh, 880px); display: flex; isolation: isolate; overflow: hidden; background: var(--dark); }
+.stage { position: absolute; inset: 0; z-index: -1; }
+.scene { position: absolute; inset: 0; opacity: 0; transition: opacity 1.1s ease; }
+.scene.on { opacity: 1; }
+.scene img { width: 100%; height: 100%; object-fit: cover; animation: drift 26s ease-in-out infinite alternate; }
+@keyframes drift { from { transform: scale(1.03); } to { transform: scale(1.13) translate(-1.5%, -1.2%); } }
+.hero-in { display: flex; flex-direction: column; justify-content: space-between; gap: 32px; width: 100%; padding-block: calc(56px + clamp(24px, 6vh, 64px)) 32px; }
+.intro { max-width: 568px; padding: 32px; display: grid; gap: 16px; }
+.intro h1 { font: 700 clamp(2.1rem, 4.6vw, 3rem)/1.05 var(--title); letter-spacing: .03em; color: #fff; }
+.intro .role { font-size: 1.15rem; font-weight: 500; color: var(--on-dark-soft); margin-top: -8px; }
+.intro p { color: #E6E4DE; }
+.intro .row { margin-top: 8px; }
+.worlds { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.wtab { position: relative; overflow: hidden; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 16px; align-items: center; padding: 8px 16px 8px 8px; background: rgba(31, 31, 29, .9); color: var(--on-dark); border: 1px solid rgba(255, 255, 255, .16); border-radius: 12px; text-decoration: none; transition: border-color .2s, background-color .2s; }
+.wtab img { width: 96px; height: auto; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 6px; }
+.wtab b { display: block; font-weight: 600; font-size: 1.05rem; line-height: 1.2; }
+.wtab span { display: block; font-size: .9rem; line-height: 1.3; color: var(--on-dark-soft); margin-top: 2px; }
+.wtab.on { border-color: rgba(255, 255, 255, .6); background: rgba(31, 31, 29, .97); }
+.wtab i { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--accent); }
+.wtab.on i { animation: fill 7s linear forwards; }
+@keyframes fill { to { width: 100%; } }
+@media (max-width: 820px) {
+  .hero { min-height: 0; }
+  .stage { inset: 0 0 auto 0; height: calc(56px + 46svh); }
+  .hero-in { padding-top: calc(56px + 30svh); }
+  .intro { padding: 24px; }
+  .worlds { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .wtab img { width: 76px; }
+}
+
+/* A game's section: banner, then text */
+.banner { position: relative; height: clamp(280px, 48vh, 480px); overflow: hidden; display: grid; place-items: center; isolation: isolate; }
+.banner .bg { position: absolute; inset: -12% 0; z-index: -1; will-change: transform; }
+.banner .bg img { width: 100%; height: 100%; object-fit: cover; }
+.title-card { display: grid; justify-items: center; gap: 16px; text-align: center; padding: 0 20px; }
+.title-card .title-plate { display: grid; justify-items: center; gap: 8px; padding: 24px 40px; }
+.title-card .title-plate img { width: 72px; height: 72px; }
+.title-card h2 { font: 700 clamp(1.7rem, 4.6vw, 2.6rem)/1 var(--title); letter-spacing: .04em; color: #fff; }
+.title-card p { font-size: .97rem; font-weight: 500; color: var(--on-dark-soft); }
+.title-card .logo { width: min(460px, 72vw); height: auto; filter: drop-shadow(0 6px 0 rgba(0, 0, 0, .35)); }
+.title-card .title-plate.slim { padding: 10px 20px; border-radius: 999px; }
+
+.sheet { background: var(--bg); color: var(--ink); padding-block: clamp(48px, 7vw, 80px) clamp(56px, 8vw, 96px); }
+.sheet.tight { padding-block: clamp(48px, 6vw, 64px); }
+.sheet.bm, .sheet.alt { background: var(--alt); }
+.sheet h2 { font: 700 clamp(1.6rem, 3.6vw, 2.1rem)/1.15 var(--title); letter-spacing: .03em; color: var(--ink); }
+h3 { font-weight: 600; font-size: 1.2rem; color: var(--ink); }
+.sheet a:not(.btn) { color: var(--accent-ink); font-weight: 500; text-underline-offset: 3px; }
+.meta { color: var(--soft); font-weight: 500; }
+.lead { font-size: 1.2rem; line-height: 1.5; }
+.note { color: var(--soft); font-size: .95rem; }
+.duo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: clamp(24px, 4vw, 48px); align-items: center; }
+.duo.start { align-items: start; }
+.duo.even { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+.stack { display: grid; gap: 16px; }
+.list { margin: 0; padding-left: 1.15em; display: grid; gap: 8px; max-width: 70ch; }
+.list li::marker { color: var(--accent); }
+.sub { margin: clamp(40px, 6vw, 64px) 0 16px; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 24px; }
+.sub p { font-size: .95rem; color: var(--soft); }
+.clips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.clips.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.clips figure { margin: 0; min-width: 0; }
+.clips video { aspect-ratio: 16 / 9; object-fit: cover; }
+video[data-autoplay] { cursor: pointer; }
+.clips.three video { aspect-ratio: 16 / 10; }
+.clips figcaption { margin-top: 12px; color: var(--soft); }
+.clips figcaption b { font-weight: 600; color: var(--ink); }
+.shots { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px 16px; }
+.shot { display: grid; gap: 8px; padding: 0; border: 0; background: none; cursor: zoom-in; text-align: left; min-width: 0; }
+.shot img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; border: 1px solid rgba(0, 0, 0, .16); border-radius: 8px; background: #111; box-shadow: 0 1px 2px rgba(0, 0, 0, .06), 0 10px 20px -14px rgba(0, 0, 0, .4); transition: transform .15s; }
+.shot:hover img { transform: translateY(-3px); }
+.shot span { font-size: .93rem; line-height: 1.3; font-weight: 500; color: var(--soft); }
+.shots.art .shot img { aspect-ratio: 4 / 3; }
+.shot.lead-shot img { border-radius: 10px; }
+.quad { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.strip { overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent); }
+.strip-track { display: flex; gap: 16px; width: max-content; animation: slide 80s linear infinite; }
+.strip:hover .strip-track { animation-play-state: paused; }
+@keyframes slide { to { transform: translateX(-50%); } }
+.cast { margin-top: clamp(40px, 6vw, 56px); }
+.cast img { width: 96px; height: 100px; image-rendering: pixelated; flex: none; }
+.scenes { margin-top: clamp(40px, 6vw, 56px); }
+.scenes img { width: 192px; height: 192px; flex: none; border: 1px solid rgba(0, 0, 0, .16); border-radius: 8px; }
+@media (max-width: 900px) { .shots { grid-template-columns: repeat(3, minmax(0, 1fr)); } .clips.three { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 820px) { .duo, .duo.even { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 600px) { .shots { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 12px; } .clips { grid-template-columns: minmax(0, 1fr); } }
+
+/* Text sections */
+.cols { display: grid; grid-template-columns: minmax(0, .7fr) minmax(0, 1.7fr); gap: clamp(16px, 4vw, 56px); align-items: start; }
+.prose { display: grid; gap: 16px; max-width: 68ch; }
+@media (max-width: 820px) { .cols { grid-template-columns: minmax(0, 1fr); } }
+
+/* Air Force */
+.af { background: var(--dark); color: #E4E2DC; padding-block: clamp(56px, 8vw, 96px); }
+.af h2 { font: 700 clamp(1.8rem, 4vw, 2.4rem)/1.1 var(--title); letter-spacing: .04em; color: #fff; }
+.af .meta { color: var(--on-dark-soft); margin-top: 8px; }
+.af .lead { margin-top: 16px; max-width: 62ch; color: #fff; }
+.af .prose { margin-top: 16px; }
+.posts { display: grid; margin-top: 32px; }
+.post { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); gap: 8px 40px; padding-block: 24px; border-top: 1px solid rgba(255, 255, 255, .14); }
+.post h3 { font-size: 1.1rem; color: #fff; }
+.post .where { color: var(--on-dark-soft); font-size: .97rem; margin-top: 4px; }
+@media (max-width: 760px) { .post { grid-template-columns: minmax(0, 1fr); } }
+
+/* Education, skills, contact */
+.facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 40px; }
+.facts h3 { font-size: 1.05rem; margin-bottom: 8px; }
+.facts ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; line-height: 1.45; color: var(--soft); }
+@media (max-width: 560px) { .facts { grid-template-columns: minmax(0, 1fr); } }
+.contact { margin-top: clamp(48px, 6vw, 64px); padding: clamp(24px, 4vw, 40px); display: grid; gap: 16px; background: var(--dark); border-color: transparent; }
+.contact h2 { color: #fff; }
+.contact p { color: #E4E2DC; }
+.mail { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
+.mail .addr { font-weight: 600; font-size: clamp(1.1rem, 3.2vw, 1.4rem); user-select: all; overflow-wrap: anywhere; color: #fff; }
+.copied { min-height: 1.4em; color: var(--on-dark-soft); font-size: .95rem; }
+footer { background: var(--dark); color: var(--on-dark-soft); font-size: .9rem; }
+footer .wrap { padding-block: 24px; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+footer a { color: #DCDAD3; }
+
+/* Picture viewer */
+.lb { position: fixed; inset: 0; z-index: 100; background: rgba(15, 15, 14, .96); display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 8px; padding: max(16px, env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px)); }
+.lb figure { margin: 0; display: grid; gap: 12px; justify-items: center; min-width: 0; }
+.lb img { max-width: 100%; max-height: calc(100svh - 130px); width: auto; height: auto; border-radius: 8px; background: #111; }
+.lb figcaption { color: var(--on-dark); text-align: center; }
+.lb figcaption i { font-style: normal; color: var(--on-dark-soft); margin-left: 10px; font-size: .9rem; }
+.lb button { width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .3); background: rgba(255, 255, 255, .08); color: #fff; cursor: pointer; display: grid; place-items: center; }
+.lb button:hover { background: rgba(255, 255, 255, .2); }
+.lb button svg { width: 20px; height: 20px; }
+.lb .x { position: absolute; top: max(16px, env(safe-area-inset-top, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); }
+@media (max-width: 700px) {
+  .lb { grid-template-columns: minmax(0, 1fr); }
+  .lb .prev, .lb .next { position: absolute; bottom: max(16px, env(safe-area-inset-bottom, 0px)); }
+  .lb .prev { left: 16px; } .lb .next { right: 16px; }
+  .lb img { max-height: calc(100svh - 210px); }
+  .lb figcaption { padding-inline: 60px; min-height: 48px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .scene img, .wtab.on i { animation: none; }
+  .strip-track { animation: none; flex-wrap: wrap; width: auto; justify-content: center; }
+  .strip { -webkit-mask-image: none; mask-image: none; }
+  .btn, .shot img, .wtab { transition: none; }
+}
+</style>
 </head>
 <body>
 
-<header class="topbar">
-  <div class="wrap topbar-in">
-    <a class="mark" href="#top">Dillon Krotz</a>
-    <nav class="nav" aria-label="Sections">
-      <a href="#work">Work</a>
-      <a href="#experience">Experience</a>
-      <a href="#skills">Skills</a>
-      <a href="#credentials">Education</a>
-      <a href="#contact">Contact</a>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="name" href="#top">Dillon Krotz</a>
+    <nav aria-label="Sections">
+      <a href="#bitmates">Games</a>
+      <a class="wide-only" href="#how">How I build</a>
+      <a class="mid-only" href="#airforce">Air Force</a>
+      <a class="cta" href="#contact">Contact</a>
     </nav>
   </div>
 </header>
 
-<main>
-  <section class="hero" id="top">
-    <canvas id="terrain" aria-hidden="true"></canvas>
-    <div class="hero-fade" aria-hidden="true"></div>
+<main id="top">
+  <!-- Opening -->
+  <section class="hero">
+    <div class="stage" aria-hidden="true">
+      <div class="scene on"><img class="px" src="assets/ui/bm-vista.webp" alt="" width="1056" height="572"></div>
+      <div class="scene"><img src="assets/ui/ds-map.webp" alt="" width="1680" height="940"></div>
+      <div class="scene"><img src="assets/dg/town-overview.webp" alt="" width="960" height="600"></div>
+    </div>
     <div class="wrap hero-in">
-      <div class="hero-copy">
-        <p class="eyebrow">Software engineer · U.S. Air Force veteran</p>
+      <div class="title-plate intro">
         <h1>Dillon Krotz</h1>
-        <p class="lede">I build the servers, smart contracts, and generated worlds behind online games.</p>
-        <p class="intro">For seven years I was co-founder and CTO of BitMates, a blockchain MMORPG that earned $3.2M+ and hosted 5,000+ players at once. I also served six years in the U.S. Air Force, leading Minuteman III maintenance and test launch teams.</p>
-        <div class="actions">
-          <a class="btn primary" href="#contact">Get in touch</a>
-          <a class="btn" href="https://github.com/KrotzBotz" target="_blank" rel="noopener">GitHub</a>
+        <p class="role">Full-stack online game developer</p>
+        <p>I design and build whole online games: the architecture, the client people play, the servers behind it, the database, and the hosting. I've been doing it for nine years, seven of them as co-founder and CTO of BitMates.</p>
+        <p>I came to software from the U.S. Air Force, where I worked on nuclear missiles. Today I build with AI coding agents, and I take production apps from the first idea to launch.</p>
+        <div class="row">
+          <a class="btn" href="#bitmates">See the games</a>
+          <a class="btn ghost" href="#contact">Contact</a>
         </div>
       </div>
-      <div class="hero-foot">
-        <span>41.9°N 88.3°W · Saint Charles, Illinois</span>
-        <span class="seed">Terrain from seed <span id="seed-value">42</span> <button class="textbtn" id="reseed" type="button">New terrain</button></span>
+      <div class="worlds" id="worlds">
+        <a class="wtab on" href="#bitmates"><img src="assets/bm/crab-raid-s.webp" alt="" width="720" height="331"><span><b>BitMates</b><span>Pixel-art MMORPG</span></span><i></i></a>
+        <a class="wtab" href="#dungeonsmithy"><img src="assets/ds/site/monsters-640.webp" alt="" width="640" height="400"><span><b>DungeonSmithy</b><span>D&amp;D in the browser</span></span><i></i></a>
+        <a class="wtab" href="#dungeongame"><img src="assets/dg/dungeon-hall-s.webp" alt="" width="640" height="400"><span><b>DungeonGame</b><span>Dungeon MMO in Unity</span></span><i></i></a>
       </div>
     </div>
   </section>
 
-  <section class="section" id="work">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>Selected work</h2>
-        <p class="sec-note">Games, platforms, and tools I've built since 2019, from production blockchain contracts to procedurally generated dungeons.</p>
+  <!-- BitMates -->
+  <section id="bitmates">
+    <div class="banner">
+      <div class="bg" data-parallax><img class="px" src="assets/ui/bm-jungle.webp" alt="" width="1280" height="720"></div>
+      <div class="title-card">
+        <h2 style="line-height:0"><img class="logo px" src="assets/ui/bm-logo.png" alt="BitMates" width="304" height="160"></h2>
+        <div class="title-plate slim"><p>Co-founder and CTO · 2019 to 2026</p></div>
       </div>
-
-      <article class="feature">
-        <div class="feature-text">
-          <p class="kicker">Co-founder &amp; CTO · March 2019 – January 2026</p>
-          <h3>BitMates</h3>
-          <p>An Ethereum-based, free-to-play MMORPG with player-owned items, released on the web, Steam Early Access, and NFT marketplaces. I started as its only developer and built the whole platform.</p>
-          <ul class="points">
-            <li>A multithreaded Java MMO server (Java NIO, thread pools) with cross-server chat, trading, and parties, plus auto-scaling with zero-downtime migrations.</li>
-            <li>Solidity contracts for 10,000 ERC-721 characters, ERC-1155 items, an NFT marketplace with Dutch auctions and royalties, and staking.</li>
-            <li>A two-way bridge that turns game items into tokens and back, with signature checks and Merkle proofs to stop duplication.</li>
-            <li>PostgreSQL, Docker, Digital Ocean, and Google Cloud underneath; sign-in through Discord, Google, Facebook, and Apple; Steam API integration.</li>
-            <li>Hired and led 5+ engineers, set the code standards, reviewed every commit, and ran Agile sprints.</li>
-          </ul>
-          <p class="tags">Java · Solidity · C# · Unity · PostgreSQL · Docker · GCP</p>
-          <p class="links">
-            <a href="https://game.bitmates.io" target="_blank" rel="noopener">Play BitMates</a>
-            <a href="https://store.steampowered.com/app/3154690" target="_blank" rel="noopener">Steam page</a>
-            <a href="https://medium.com/@Bitmates" target="_blank" rel="noopener">Dev blog</a>
-          </p>
+    </div>
+    <div class="sheet bm">
+      <div class="wrap">
+        <div class="duo">
+          <div class="stack">
+            <p class="lead">A free-to-play pixel-art MMORPG. Players explore, fight bosses together, farm, craft, and trade. The characters and items are tokens on Ethereum, so what players earn belongs to them. The game brought in more than $3.2 million.</p>
+            <p>I built it full stack. I started as the only developer and wrote the first version of everything: the game, the servers, the smart contracts, the database, and the hosting. As it grew I led a team of engineers, and I stayed in the code the whole time.</p>
+          </div>
+          <div class="plate"><video muted loop playsinline preload="none" poster="assets/bm/beach-boss.webp" data-autoplay width="1000" height="564" aria-label="Clip: players fight a giant crab boss on a beach"><source src="assets/bm/beach-boss.mp4" type="video/mp4"></video></div>
         </div>
-        <aside class="status" aria-label="BitMates production figures">
-          <p class="status-head label">Production figures</p>
-          <dl>
-            <div class="row"><dt>Peak concurrent players</dt><dd>5,000+</dd></div>
-            <div class="row"><dt>Server uptime, 3+ years</dt><dd>99.9%</dd></div>
-            <div class="row"><dt>Server latency</dt><dd>&lt; 50 ms</dd></div>
-            <div class="row"><dt>NFT collection</dt><dd>10,000 at 0.07 ETH</dd></div>
-            <div class="row"><dt>Revenue</dt><dd>$3.2M+</dd></div>
-            <div class="row"><dt>Gas per transaction</dt><dd>180k → 85k</dd></div>
-            <div class="row"><dt>Playtime per active player</dt><dd>150+ hrs</dd></div>
-          </dl>
-        </aside>
-      </article>
 
-      <div class="duo">
-        <article class="proj">
-          <figure class="plate">
-            <canvas id="table-plate" role="img" aria-label="Illustration of a tabletop battle grid with hero and monster tokens, torchlight, and a fireball area template"></canvas>
-            <figcaption>Illustration · 5 ft squares · torchlight · 20 ft fireball template</figcaption>
-          </figure>
-          <p class="kicker">Personal project · November 2025 – present</p>
-          <h3>LoreKeeper</h3>
-          <p>A browser virtual tabletop for Dungeons &amp; Dragons 5th edition.</p>
-          <ul class="points">
-            <li>React, TypeScript, and Konva on the front end; Node services for the game server, WebSocket room routing, auth, and rooms, on Redis and PostgreSQL, deployed to Kubernetes.</li>
-            <li>A deterministic 5e rules engine with no runtime dependencies: 6 classes, 257 monsters, 46 spells, 123 magic items, and grid combat with cover, line of sight, and lighting.</li>
-            <li>Seeded city and world map generation: a TypeScript port of Watabou's city generator, and Azgaar's map pipeline drawn by a custom canvas renderer.</li>
-            <li>I set the architecture and product direction, direct AI coding agents through the build, and run playtests to decide each round of fixes.</li>
-          </ul>
-          <p class="tags">TypeScript · React · Node.js · Redis · PostgreSQL · Kubernetes</p>
-        </article>
-
-        <article class="proj">
-          <figure class="plate">
-            <canvas id="dungeon-plate" role="img" aria-label="Illustration of a generated dungeon floor plan with numbered rooms joined by corridors"></canvas>
-            <figcaption>Illustration · generated floor plan · seed 7</figcaption>
-          </figure>
-          <p class="kicker">Personal project · November 2024 – present</p>
-          <h3>DungeonGame</h3>
-          <p>An isometric dungeon MMO with a Unity 6 client and a C# game server that share one code library.</p>
-          <ul class="points">
-            <li>Seeded dungeon generation (rooms, corridors, monster encounters, props, lighting) that runs the same on the server and the client.</li>
-            <li>A generated overworld with towns, ruins, and a day-night cycle.</li>
-            <li>Custom real-time networking built for hundreds of concurrent players, with the backend in Docker containers.</li>
-            <li>A Dungeon Painter editor tool, plus command-line tools that print maps and render screenshots for visual checks.</li>
-          </ul>
-          <p class="tags">C# · Unity 6 · Docker</p>
-        </article>
-      </div>
-
-      <div class="more-head">
-        <p class="label">More projects</p>
-      </div>
-      <div class="more">
-        <article class="card">
-          <p class="kicker">October 2026</p>
-          <h3>MindScratch</h3>
-          <p>A gallery of generative art sketches drawn on plain canvas. New sketches join the gallery automatically, and every push deploys to GitHub Pages.</p>
-          <p class="tags">JavaScript · Canvas · Vite · GitHub Actions</p>
-          <p class="links"><a href="https://krotzbotz.github.io/MindScratch/" target="_blank" rel="noopener">See it live</a></p>
-        </article>
-        <article class="card">
-          <p class="kicker">2023 – 2024</p>
-          <h3>3D Physics Engine</h3>
-          <p>Collision detection built on bounding volume hierarchies, faster than the standard physics solutions it replaced, and integrated with Unity.</p>
-          <p class="tags">C# · Unity · BVH</p>
-        </article>
-        <article class="card">
-          <p class="kicker">June 2025</p>
-          <h3>Card Parser</h3>
-          <p>Reads Magic: The Gathering deck lists from Moxfield, pulls card data and art from the Scryfall API, and writes a description of each card's artwork with an LLM API.</p>
-          <p class="tags">C# · .NET 8 · REST APIs</p>
-        </article>
-        <article class="card">
-          <p class="kicker">May 2025</p>
-          <h3>ModHouse Haven</h3>
-          <p>An interior design portfolio site with a Node.js API, an admin panel for projects, cookie-session sign-in, Docker deployment, and Let's Encrypt SSL.</p>
-          <p class="tags">HTML · CSS · JavaScript · Node.js · Docker</p>
-        </article>
-      </div>
-
-      <div class="also">
-        <p class="label">Also</p>
-        <ul class="points">
-          <li>AI assistant workflows and ComfyUI image generation pipelines (2024 – present)</li>
-          <li>UDP networking and NAT hole punching for a Unity multiplayer game (2023)</li>
-          <li>A marketplace listing reader that drafts purchase offers with an LLM API, using Puppeteer (2025)</li>
-          <li>A car inventory scraper that drives Chrome over the DevTools Protocol (2026)</li>
-          <li>Advent of Code 2022 in Rust</li>
+        <div class="sub"><h3>What I built</h3></div>
+        <ul class="list" >
+          <li>The game server, in multithreaded Java. Chat, trading, and parties work across servers, and players can be moved between machines without being disconnected.</li>
+          <li>The game itself: networking, inventory, crafting, and quests.</li>
+          <li>The smart contracts: 10,000 characters, in-game items, a marketplace with auctions and royalties, and staking. Reworking them cut the gas cost of a transaction by about half.</li>
+          <li>A bridge that turns a game item into a token and back, built so nobody can duplicate an item on the way.</li>
+          <li>The database, the hosting, and sign-in with Discord, Google, Facebook, or Apple.</li>
         </ul>
+        <p style="margin-top: 16px; max-width: 70ch"><b>Built with:</b> Java, Unity and C#, Solidity and Hardhat, PostgreSQL, Firestore, Docker, DigitalOcean, Google Cloud.</p>
+
+        <div class="sub"><h3>In the game</h3><p>Clips from the <a href="https://medium.com/@Bitmates" target="_blank" rel="noopener">BitMates dev blog</a>.</p></div>
+        <div class="clips">
+          <figure>
+            <div class="plate"><video muted loop playsinline preload="none" poster="assets/bm/forest-fight.webp" data-autoplay aria-label="Clip: players fight a glowing wolf in a forest"><source src="assets/bm/forest-fight.mp4" type="video/mp4"></video></div>
+            <figcaption><b>Bosses.</b> Players team up against them out in the open world.</figcaption>
+          </figure>
+          <figure>
+            <div class="plate"><video muted loop playsinline preload="none" poster="assets/bm/inventory.webp" data-autoplay aria-label="Clip: two players trade items in a trade window"><source src="assets/bm/inventory.mp4" type="video/mp4"></video></div>
+            <figcaption><b>Trading.</b> Two players swap items, and the server checks both sides.</figcaption>
+          </figure>
+          <figure>
+            <div class="plate"><video muted loop playsinline preload="none" poster="assets/bm/crowd.webp" data-autoplay aria-label="Clip: a group of player characters gathers in a field"><source src="assets/bm/crowd.mp4" type="video/mp4"></video></div>
+            <figcaption><b>Other players.</b> Everyone here is a real person.</figcaption>
+          </figure>
+          <figure>
+            <div class="plate"><video muted loop playsinline preload="none" poster="assets/bm/yurt.webp" data-autoplay aria-label="Clip: a player walks into a shop inside a forest lodge"><source src="assets/bm/yurt.mp4" type="video/mp4"></video></div>
+            <figcaption><b>Shops.</b> Buildings open up as you walk in.</figcaption>
+          </figure>
+        </div>
+
+        <div class="strip cast" aria-label="BitMates character portraits">
+          <div class="strip-track" data-loop>
+            <img src="assets/bm/p01.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p02.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p03.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p04.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p05.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p06.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p07.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p08.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p09.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p10.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p11.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p12.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p13.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p14.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p15.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p16.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p17.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p18.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p19.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p20.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p21.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p22.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p23.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p24.webp" alt="" width="96" height="100" loading="lazy"><img src="assets/bm/p25.webp" alt="" width="96" height="100" loading="lazy">
+          </div>
+        </div>
+
+        <div class="sub"><h3>The world</h3><p>Pixel art by the BitMates art team. Select one to see it full size.</p></div>
+        <div class="shots art" data-gallery="BitMates">
+          <button class="shot" type="button" data-full="assets/bm/city.webp" data-cap="The desert capital"><img src="assets/bm/city.webp" alt="A pixel-art desert city with a palace and market stalls" width="1400" height="709" loading="lazy" decoding="async"><span>Desert capital</span></button>
+          <button class="shot" type="button" data-full="assets/bm/crab-raid.webp" data-cap="Players fighting a giant crab on the shore"><img src="assets/bm/crab-raid-s.webp" alt="Many player characters attacking a giant crab" width="720" height="331" loading="lazy" decoding="async"><span>Boss fight</span></button>
+          <button class="shot" type="button" data-full="assets/bm/plaza.webp" data-cap="The town plaza"><img src="assets/bm/plaza-s.webp" alt="A town plaza with a fountain" width="720" height="403" loading="lazy" decoding="async"><span>Town plaza</span></button>
+          <button class="shot" type="button" data-full="assets/bm/quest-journal.webp" data-cap="The quest journal"><img src="assets/bm/quest-journal-s.webp" alt="A quest journal window over a beach" width="720" height="405" loading="lazy" decoding="async"><span>Quest journal</span></button>
+          <button class="shot" type="button" data-full="assets/bm/farm.webp" data-cap="The farm, where players grow crops"><img src="assets/bm/farm-s.webp" alt="A pixel-art farm with red barns and fields" width="720" height="720" loading="lazy" decoding="async"><span>The farm</span></button>
+          <button class="shot" type="button" data-full="assets/bm/castle-garden.webp" data-cap="The castle gardens"><img src="assets/bm/castle-garden-s.webp" alt="Castle gardens with fountains" width="720" height="405" loading="lazy" decoding="async"><span>Castle gardens</span></button>
+          <button class="shot" type="button" data-full="assets/bm/desert-village.webp" data-cap="A village of tents in the dunes"><img src="assets/bm/desert-village-s.webp" alt="A desert village of round tents" width="720" height="410" loading="lazy" decoding="async"><span>Dune village</span></button>
+          <button class="shot" type="button" data-full="assets/bm/tomb.webp" data-cap="Inside a pyramid"><img src="assets/bm/tomb-s.webp" alt="A dark tomb with painted pillars" width="720" height="500" loading="lazy" decoding="async"><span>Inside a pyramid</span></button>
+          <button class="shot" type="button" data-full="assets/bm/lab.webp" data-cap="A laboratory"><img src="assets/bm/lab-s.webp" alt="A blue laboratory interior" width="720" height="519" loading="lazy" decoding="async"><span>The lab</span></button>
+          <button class="shot" type="button" data-full="assets/bm/pyramid.webp" data-cap="The pyramid by the oasis"><img src="assets/bm/pyramid-s.webp" alt="A pyramid beside blue water" width="720" height="353" loading="lazy" decoding="async"><span>Oasis</span></button>
+          <button class="shot" type="button" data-full="assets/bm/town-map.webp" data-cap="The starting town, laid out from above"><img src="assets/bm/town-map-s.webp" alt="A map of a town in a forest" width="720" height="656" loading="lazy" decoding="async"><span>Starting town</span></button>
+          <button class="shot" type="button" data-full="assets/bm/bitcade.webp" data-cap="The Bitcade, an arcade inside the game"><img src="assets/bm/bitcade-s.webp" alt="An arcade screen with the BitMates logo" width="720" height="360" loading="lazy" decoding="async"><span>The Bitcade</span></button>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section" id="experience">
+  <!-- DungeonSmithy -->
+  <section id="dungeonsmithy">
+    <div class="banner">
+      <div class="bg" data-parallax><img src="assets/ui/ds-map.webp" alt="" width="1680" height="940"></div>
+      <div class="title-card">
+        <div class="title-plate">
+          <img src="assets/ui/ds-seal.svg" alt="" width="78" height="78">
+          <h2>DungeonSmithy</h2>
+          <p>2025 to now · dungeonsmithy.com</p>
+        </div>
+      </div>
+    </div>
+    <div class="sheet">
+      <div class="wrap">
+        <div class="duo" data-gallery="DungeonSmithy">
+          <div class="stack">
+            <p class="lead">A virtual tabletop for D&amp;D 5th edition that runs in the browser. You open a room, send your friends the link, and play. The game rolls the dice, tracks conditions, and applies the rules for you.</p>
+          </div>
+          <button class="shot lead-shot" type="button" data-full="assets/ds/site/hero-1280.webp" data-cap="A town map on the table, with a hero's character sheet beside it"><img src="assets/ds/site/hero-1280.webp" alt="A town map with party tokens and a character sheet" width="1280" height="800" decoding="async"></button>
+        </div>
+
+        <div class="sub"><h3>What I built</h3></div>
+        <ul class="list" >
+          <li>A 5e rules engine that resolves every attack, save, and spell on the server. It covers 6 classes, 257 monsters, 46 spells, and 123 magic items.</li>
+          <li>Grid combat with initiative, opportunity attacks, cover, line of sight, and lighting.</li>
+          <li>Town and street generation from a seed. I ported Watabou's city generator to TypeScript.</li>
+          <li>A canvas renderer that draws the world and town maps.</li>
+          <li>The whole stack around it: the browser client, four backend services, the database, and the deployment.</li>
+        </ul>
+        <p style="margin-top: 16px; max-width: 70ch"><b>Built with:</b> React, TypeScript, and Konva in the browser. Node.js services for the game server, room routing, sign-in, and rooms. PostgreSQL, Redis, and Kubernetes.</p>
+
+        <div class="sub"><h3>In play</h3></div>
+        <div class="clips three">
+          <figure>
+            <div class="plate"><video muted loop playsinline preload="none" poster="assets/ds/clip-fireball.webp" data-autoplay aria-label="Clip: a wizard casts Fireball on a group of goblins"><source src="assets/ds/clip-fireball.mp4" type="video/mp4"></video></div>
+            <figcaption><b>Combat.</b> Aim a Fireball and you see who is in the blast before you cast it.</figcaption>
+          </figure>
+          <figure>
+            <div class="plate"><video muted loop playsinline preload="none" poster="assets/ds/clip-world.webp" data-autoplay aria-label="Clip: the camera moves across a world map"><source src="assets/ds/clip-world.mp4" type="video/mp4"></video></div>
+            <figcaption><b>The world.</b> A whole continent on one map, drawn by a renderer I wrote.</figcaption>
+          </figure>
+          <figure>
+            <div class="plate"><video muted loop playsinline preload="none" poster="assets/ds/clip-talk.webp" data-autoplay aria-label="Clip: a conversation with an innkeeper"><source src="assets/ds/clip-talk.mp4" type="video/mp4"></video></div>
+            <figcaption><b>Towns.</b> Talk to an innkeeper and the board waits for everyone at the table.</figcaption>
+          </figure>
+        </div>
+
+        <div class="strip scenes" aria-label="Scene art from DungeonSmithy">
+          <div class="strip-track" data-loop>
+            <img class="px" src="assets/ds/scenes/mountain-overlook-sunset.png" alt="" width="192" height="192" loading="lazy"><img class="px" src="assets/ds/scenes/floating-islands-sky.png" alt="" width="192" height="192" loading="lazy"><img class="px" src="assets/ds/scenes/paper-market-bandstand-dusk.png" alt="" width="192" height="192" loading="lazy"><img class="px" src="assets/ds/scenes/victory-dawn-ridge.png" alt="" width="192" height="192" loading="lazy"><img class="px" src="assets/ds/scenes/snowy-pass-aurora.png" alt="" width="192" height="192" loading="lazy"><img class="px" src="assets/ds/scenes/lantern-town-lake-slope.png" alt="" width="192" height="192" loading="lazy"><img class="px" src="assets/ds/scenes/tavern-fireside.png" alt="" width="192" height="192" loading="lazy"><img class="px" src="assets/ds/scenes/troll-bridge-standoff.png" alt="" width="192" height="192" loading="lazy"><img class="px" src="assets/ds/scenes/storm-cliff-wizard.png" alt="" width="192" height="192" loading="lazy"><img class="px" src="assets/ds/scenes/moth-folk-ribbon-orchard.png" alt="" width="192" height="192" loading="lazy">
+          </div>
+        </div>
+        <p class="note" style="margin-top: 10px">Scene cards from the game. Players see one when they arrive somewhere new.</p>
+
+        <div class="sub"><h3>Screenshots</h3><p>From dungeonsmithy.com. Select one to see it full size.</p></div>
+        <div class="shots" data-gallery="DungeonSmithy">
+          <button class="shot" type="button" data-full="assets/ds/site/monsters-960.webp" data-cap="A fight with skeletons in a candlelit abbey"><img src="assets/ds/site/monsters-640.webp" alt="Heroes fight skeletons on a stone grid" width="640" height="400" loading="lazy" decoding="async"><span>Combat</span></button>
+          <button class="shot" type="button" data-full="assets/ds/site/talk-960.webp" data-cap="Talking with an innkeeper"><img src="assets/ds/site/talk-640.webp" alt="A conversation window with an innkeeper's portrait" width="640" height="400" loading="lazy" decoding="async"><span>Conversation</span></button>
+          <button class="shot" type="button" data-full="assets/ds/site/party-960.webp" data-cap="Four players at one table in a snowy town at night"><img src="assets/ds/site/party-640.webp" alt="Party tokens on a snowy town map with chat" width="640" height="400" loading="lazy" decoding="async"><span>A party in town</span></button>
+          <button class="shot" type="button" data-full="assets/ds/site/arrival-800.webp" data-cap="Arriving in a village: a painted scene card"><img src="assets/ds/site/arrival-640.webp" alt="A scene card with a painting of a village" width="640" height="400" loading="lazy" decoding="async"><span>Arriving somewhere new</span></button>
+          <button class="shot" type="button" data-full="assets/ds/site/keep-800.webp" data-cap="Walking through a keep's gate at dusk as the fog lifts"><img src="assets/ds/site/keep-640.webp" alt="A party at a keep's gate with fog over the map" width="640" height="400" loading="lazy" decoding="async"><span>Fog of war</span></button>
+          <button class="shot" type="button" data-full="assets/ds/site/forge-1280.webp" data-cap="Creating a hero, laid out as a journal"><img src="assets/ds/site/forge-640.webp" alt="A journal page summarizing a new fighter" width="640" height="400" loading="lazy" decoding="async"><span>Character creation</span></button>
+          <button class="shot" type="button" data-full="assets/ds/site/levelup-1280.webp" data-cap="Choosing spells on level-up"><img src="assets/ds/site/levelup-640.webp" alt="A journal page listing spells to choose" width="640" height="400" loading="lazy" decoding="async"><span>Leveling up</span></button>
+          <button class="shot" type="button" data-full="assets/ds/site/spellbook-960.webp" data-cap="The spellbook, open in the middle of a fight"><img src="assets/ds/site/spellbook-640.webp" alt="An open spellbook listing third-level spells" width="640" height="400" loading="lazy" decoding="async"><span>Spellbook</span></button>
+          <button class="shot" type="button" data-full="assets/ds/site/bag-960.webp" data-cap="A hero's bag"><img src="assets/ds/site/bag-640.webp" alt="An inventory window with potions and gear" width="640" height="400" loading="lazy" decoding="async"><span>Inventory</span></button>
+          <button class="shot" type="button" data-full="assets/ds/site/shop-960.webp" data-cap="A smith's shelves, with prices"><img src="assets/ds/site/shop-640.webp" alt="A shop window listing weapons and prices" width="640" height="400" loading="lazy" decoding="async"><span>Shop</span></button>
+          <button class="shot" type="button" data-full="assets/ds/site/quest-board-960.webp" data-cap="Jobs on a town's notice board"><img src="assets/ds/site/quest-board-640.webp" alt="Two quest notices pinned to a board" width="640" height="400" loading="lazy" decoding="async"><span>Notice board</span></button>
+          <button class="shot" type="button" data-full="assets/ds/site/hero-1280.webp" data-cap="A town map on the table, with a hero's character sheet beside it"><img src="assets/ds/site/hero-640.webp" alt="A town map with party tokens and a character sheet" width="640" height="400" loading="lazy" decoding="async"><span>Town map</span></button>
+          <button class="shot" type="button" data-full="assets/ds/site/world-halvane-640.webp" data-cap="Halvane, a frozen world of pine and snow"><img src="assets/ds/site/world-halvane-640.webp" alt="A snowy world map" width="640" height="400" loading="lazy" decoding="async"><span>World: Halvane</span></button>
+          <button class="shot" type="button" data-full="assets/ds/site/world-tolmere-640.webp" data-cap="Tolmere, a drowned world of rain and stilt towns"><img src="assets/ds/site/world-tolmere-640.webp" alt="A green and blue world map" width="640" height="400" loading="lazy" decoding="async"><span>World: Tolmere</span></button>
+          <button class="shot" type="button" data-full="assets/ds/site/world-lanternfall-640.webp" data-cap="Lanternfall, a twilight world of drifting lanterns"><img src="assets/ds/site/world-lanternfall-640.webp" alt="A tan and purple world map dotted with lights" width="640" height="400" loading="lazy" decoding="async"><span>World: Lanternfall</span></button>
+          <button class="shot" type="button" data-full="assets/ds/site/world-wanhope-640.webp" data-cap="Wanhope, a gray world of moors and barrows"><img src="assets/ds/site/world-wanhope-640.webp" alt="A gray world map" width="640" height="400" loading="lazy" decoding="async"><span>World: Wanhope</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DungeonGame -->
+  <section id="dungeongame">
+    <div class="sheet tight alt">
+      <div class="wrap">
+        <div class="duo start even">
+          <div class="stack">
+            <div>
+              <h2>DungeonGame</h2>
+              <p class="meta" style="margin-top: 4px">Personal project · 2024 to now</p>
+            </div>
+            <p>An isometric dungeon MMO in Unity. The client and the C# server share one library, so a dungeon generated on the server is exactly the one the client draws.</p>
+            <ul class="list">
+              <li>Dungeons and an overworld generated from a seed, with rooms, monsters, props, and lights placed by code.</li>
+              <li>The networking for real-time play, written from scratch.</li>
+              <li>A Dungeon Painter tool, and command-line tools that render any room to an image.</li>
+            </ul>
+            <p class="note">The 3D models come from asset packs. The generation, lighting, and tools are my code.</p>
+          </div>
+          <div class="quad" data-gallery="DungeonGame">
+            <button class="shot" type="button" data-full="assets/dg/dungeon-hall.webp" data-cap="A generated hall. The torches were placed by code."><img src="assets/dg/dungeon-hall-s.webp" alt="A stone dungeon hall lit by wall torches" width="640" height="400" loading="lazy" decoding="async"><span>Dungeon hall</span></button>
+            <button class="shot" type="button" data-full="assets/dg/town-overview.webp" data-cap="The town on the surface"><img src="assets/dg/town-overview-s.webp" alt="A colorful town with a river and a market" width="640" height="400" loading="lazy" decoding="async"><span>Town</span></button>
+            <button class="shot" type="button" data-full="assets/dg/hall-crypt.webp" data-cap="A crypt"><img src="assets/dg/hall-crypt-s.webp" alt="A crypt lit green" width="640" height="373" loading="lazy" decoding="async"><span>Crypt</span></button>
+            <button class="shot" type="button" data-full="assets/dg/camp-night.webp" data-cap="A camp at night"><img src="assets/dg/camp-night-s.webp" alt="A camp at night with a fire" width="640" height="400" loading="lazy" decoding="async"><span>Camp at night</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How I build -->
+  <section id="how">
+    <div class="sheet">
+      <div class="wrap">
+        <div class="cols">
+          <h2>How I build now</h2>
+          <div class="prose">
+            <p>Over the last couple of years I've moved to building with AI coding agents, and it has changed how much I can get done. I plan the architecture, split the work into tasks, hand those to agents, review what comes back, and test the result by playing it.</p>
+            <p>The job is close to the one I already had. At BitMates I led a team of engineers. In the Air Force I led maintenance crews. In both, my part was to set the direction, check the work, and answer for what shipped. Agents write code quickly, but someone still has to know what the finished system should look like and notice when something is wrong.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Air Force -->
+  <section class="af" id="airforce">
     <div class="wrap">
-      <div class="sec-head">
-        <h2>Experience</h2>
-        <p class="sec-note">Ten years of hands-on technical work, seven of them building software.</p>
+      <h2>U.S. Air Force</h2>
+      <p class="meta">2016 to 2023 · Missile and Space Systems Maintenance</p>
+      <p class="lead">For more than six years I worked on the Minuteman III, the nuclear missile that makes up the land-based part of the U.S. deterrent.</p>
+      <div class="prose">
+        <p>The work takes long technical training and a security clearance, and it has to be done right every time. I held a Secret clearance throughout, graduated from Airman Leadership School, and left with an honorable discharge.</p>
       </div>
-      <div class="ledger">
-        <div class="entry">
-          <div class="when"><strong>Mar 2019 – Jan 2026</strong><span>Remote · Saint Charles, IL</span><span>41.9°N 88.3°W</span></div>
-          <div class="what">
-            <h3>Co-Founder &amp; Chief Technology Officer</h3>
-            <p class="org">BitMates LLC</p>
-            <ul class="points">
-              <li>Built the platform from the first line of code to $3.2M+ in revenue and 5,000+ concurrent players at 99.9% uptime.</li>
-              <li>Made every architecture decision and stayed about 70% hands-on while leading the engineering team.</li>
-              <li>Managed a $5k/month cloud budget and worked with TreasureDAO, marketplace vendors, and smart contract auditors.</li>
-            </ul>
-          </div>
+      <div class="posts">
+        <div class="post">
+          <div><h3>Electro-Mechanical Team Chief</h3><p class="where">Minot AFB, North Dakota · 2016 to 2019</p></div>
+          <p>Supervised more than 40 technicians who maintained the electronic, security, and command and control systems at 150 launch facilities and 15 launch control centers.</p>
         </div>
-        <div class="entry">
-          <div class="when"><strong>Jan 2022 – Mar 2023</strong><span>Malmstrom AFB, MT</span><span>47.5°N 111.2°W</span></div>
-          <div class="what">
-            <h3>Plans &amp; Scheduling NCOIC</h3>
-            <p class="org">U.S. Air Force</p>
-            <ul class="points">
-              <li>Led scheduling for Minuteman III ICBM test launch operations across 150 launch facilities.</li>
-              <li>Ran daily production meetings and analyzed maintenance data to head off mission delays.</li>
-              <li>Hit 100% of scheduled mission timelines.</li>
-            </ul>
-          </div>
+        <div class="post">
+          <div><h3>Lead Test Launch Technician</h3><p class="where">Vandenberg SFB, California · 2019 to 2022</p></div>
+          <p>Led the teams that prepared missiles and silos for live test launches. Every launch I was assigned went as planned. I also wrote troubleshooting procedures that the unit adopted.</p>
         </div>
-        <div class="entry">
-          <div class="when"><strong>Mar 2019 – Jan 2022</strong><span>Vandenberg SFB, CA</span><span>34.7°N 120.6°W</span></div>
-          <div class="what">
-            <h3>Lead Test Launch Technician</h3>
-            <p class="org">U.S. Air Force</p>
-            <ul class="points">
-              <li>Directed teams of 6+ technicians preparing Minuteman III silos for live test launches.</li>
-              <li>Wrote troubleshooting procedures for Aerospace Ground Equipment that the unit adopted across the board.</li>
-              <li>Completed every assigned launch operation over three years with no failures or incidents.</li>
-            </ul>
-          </div>
+        <div class="post">
+          <div><h3>Plans and Scheduling NCOIC</h3><p class="where">Vandenberg SFB, California · 2022 to 2023</p></div>
+          <p>Ran the schedule for test launch operations and met every mission date.</p>
         </div>
-        <div class="entry">
-          <div class="when"><strong>Nov 2016 – Mar 2019</strong><span>Minot AFB, ND</span><span>48.4°N 101.4°W</span></div>
-          <div class="what">
-            <h3>Electro-Mechanical Team Chief</h3>
-            <p class="org">U.S. Air Force</p>
-            <ul class="points">
-              <li>Supervised 40+ technicians maintaining electronic, security, and command and control systems at 150 launch facilities and 15 launch control centers.</li>
-              <li>Kept weapon system coding and targeting work compliant with USSTRATCOM directives.</li>
-            </ul>
-          </div>
-        </div>
+      </div>
+      <div class="prose" style="margin-top: 22px">
+        <p>I co-founded BitMates in 2019 while I was still on active duty, and moved into software full time when I left the service in 2023.</p>
       </div>
     </div>
   </section>
 
-  <section class="section" id="skills">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>Skills</h2>
-      </div>
-      <div class="skills">
-        <div class="skill">
-          <p class="label">Languages &amp; frameworks</p>
-          <p>Java, C#, TypeScript, JavaScript, Solidity, SQL, Python, Rust, React, Node.js, HTML, CSS</p>
+  <!-- Education, skills, contact -->
+  <section id="skills">
+    <div class="sheet">
+      <div class="wrap">
+        <div class="cols">
+          <h2>Education and skills</h2>
+          <div class="facts">
+            <div>
+              <h3>System architecture and design</h3>
+              <ul>
+                <li>Designing a game's whole system: client, servers, data, and hosting</li>
+                <li>Distributed servers that scale across machines</li>
+                <li>Server-side checks that stop cheating and item duplication</li>
+              </ul>
+            </div>
+            <div>
+              <h3>AI workflows and automation</h3>
+              <ul>
+                <li>Building production software with AI coding agents</li>
+                <li>Designing AI workflows and automating repeat work</li>
+                <li>Image generation pipelines with ComfyUI</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Games and servers</h3>
+              <ul>
+                <li>Unity, MMO server design, real-time networking</li>
+                <li>Procedural generation, physics and collision</li>
+                <li>React, Node.js, WebSockets, REST APIs</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Languages</h3>
+              <ul>
+                <li>Java, C#, TypeScript, JavaScript</li>
+                <li>Solidity, SQL, Python, Rust</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Data and hosting</h3>
+              <ul>
+                <li>PostgreSQL, Redis, Firestore</li>
+                <li>Docker, Kubernetes, Linux</li>
+                <li>Google Cloud, DigitalOcean</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Education</h3>
+              <ul>
+                <li>B.S. in Information and Computer Science, Park University</li>
+                <li>A.A.S., College of DuPage</li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div class="skill">
-          <p class="label">Servers &amp; distributed systems</p>
-          <p>Java NIO, multithreading, event-driven design, message queues, WebSockets, horizontal scaling, auto-scaling, REST APIs, OAuth 2.0, JWT</p>
-        </div>
-        <div class="skill">
-          <p class="label">Game development</p>
-          <p>Unity, MMO server design, client-server netcode over UDP and TCP, procedural generation, collision and physics</p>
-        </div>
-        <div class="skill">
-          <p class="label">Blockchain</p>
-          <p>Ethereum, ERC-721, ERC-1155, ERC-20, Hardhat, Ethers.js, Web3.js, Chainlink VRF, gas optimization</p>
-        </div>
-        <div class="skill">
-          <p class="label">Cloud &amp; data</p>
-          <p>Docker, Kubernetes, Linux, Google Cloud, Digital Ocean, PostgreSQL, Redis, Firestore, CI/CD</p>
-        </div>
-        <div class="skill">
-          <p class="label">Leadership</p>
-          <p>Hiring, mentoring, team training, Agile and Scrum, code review, technical writing, budgets</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <section class="section" id="credentials">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>Education &amp; service</h2>
-      </div>
-      <div class="creds">
-        <div>
-          <p class="label">Education</p>
-          <ul>
-            <li><strong>B.S., Information &amp; Computer Science</strong><span>Park University · Software Development concentration · expected 2026 · GPA 3.7</span></li>
-            <li><strong>Advanced IT certifications</strong><span>California Institute of Arts &amp; Technology · in progress since 2025</span></li>
-            <li><strong>A.A.S.</strong><span>College of DuPage · 2014 · GPA 3.5</span></li>
-          </ul>
-        </div>
-        <div>
-          <p class="label">Military service</p>
-          <ul>
-            <li><strong>U.S. Air Force, 2016 – 2023</strong><span>Honorable discharge</span></li>
-            <li><strong>AFSC 2M0X3</strong><span>Missile &amp; Space Systems Maintenance</span></li>
-            <li><strong>Airman Leadership School</strong><span>USAF leadership training</span></li>
-            <li><strong>Secret security clearance</strong><span>Held during service</span></li>
-          </ul>
+        <div class="title-plate contact" id="contact">
+          <h2>Contact</h2>
+          <p>Email is the best way to reach me. I'm in Saint Charles, Illinois.</p>
+          <div class="mail">
+            <span class="addr" id="email">dillonkrotz22@gmail.com</span>
+            <button class="btn" id="copy-email" type="button">Copy email</button>
+            <a class="btn ghost" href="https://github.com/KrotzBotz" target="_blank" rel="noopener">GitHub</a>
+          </div>
+          <p class="copied" id="copy-status" role="status" aria-live="polite"></p>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="section" id="contact">
-    <div class="wrap contact-in">
-      <h2>Contact</h2>
-      <p class="sec-note">Email is the quickest way to reach me. I'm based in Saint Charles, Illinois, and available to travel.</p>
-      <div class="email-row">
-        <span class="email" id="email">dillonkrotz22@gmail.com</span>
-        <button class="btn" id="copy-email" type="button">Copy email</button>
-        <span class="copied" id="copy-status" role="status" aria-live="polite"></span>
-      </div>
-      <p class="links"><a href="https://github.com/KrotzBotz" target="_blank" rel="noopener">github.com/KrotzBotz</a></p>
     </div>
   </section>
 </main>
 
 <footer>
-  <div class="wrap foot-in">
+  <div class="wrap">
     <span>Dillon Krotz</span>
-    <span>41.9°N 88.3°W</span>
+    <span>BitMates art by the BitMates art team.</span>
   </div>
 </footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Picture viewer" hidden>
+  <button class="x" id="lb-x" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <button class="prev" id="lb-prev" type="button" aria-label="Previous picture"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <figure>
+    <img id="lb-img" alt="">
+    <figcaption><span id="lb-cap"></span><i id="lb-count"></i></figcaption>
+  </figure>
+  <button class="next" id="lb-next" type="button" aria-label="Next picture"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+</div>
 
 <script>
 (function () {
   "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var $ = function (id) { return document.getElementById(id); };
+  var all = function (sel) { return Array.prototype.slice.call(document.querySelectorAll(sel)); };
 
-  // Seeded randomness (mulberry32) and value noise for the generated graphics.
-  function mulberry32(a) {
-    return function () {
-      a |= 0; a = (a + 0x6D2B79F5) | 0;
-      var t = Math.imul(a ^ (a >>> 15), 1 | a);
-      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-    };
+  // Opening: the three tabs swap the scene behind it.
+  var scenes = all(".scene"), tabs = all(".wtab"), current = 0, timer = 0;
+  function show(i) {
+    current = i;
+    scenes.forEach(function (s, n) { s.classList.toggle("on", n === i); });
+    tabs.forEach(function (t, n) {
+      t.classList.remove("on");
+      if (n === i) { void t.offsetWidth; t.classList.add("on"); }
+    });
   }
-  function hash2(x, y, s) {
-    var h = (Math.imul(x, 374761393) + Math.imul(y, 668265263) + Math.imul(s, 982451653)) | 0;
-    h = Math.imul(h ^ (h >>> 13), 1274126177);
-    h ^= h >>> 16;
-    return (h >>> 0) / 4294967296;
-  }
-  function vnoise(x, y, s) {
-    var xi = Math.floor(x), yi = Math.floor(y);
-    var xf = x - xi, yf = y - yi;
-    var u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf);
-    var a = hash2(xi, yi, s), b = hash2(xi + 1, yi, s), c = hash2(xi, yi + 1, s), d = hash2(xi + 1, yi + 1, s);
-    return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
-  }
-  function fbm(x, y, s) {
-    var f = 0, amp = 0.5, fr = 1, norm = 0;
-    for (var o = 0; o < 5; o++) {
-      f += amp * vnoise(x * fr, y * fr, s + o * 101);
-      norm += amp; amp *= 0.5; fr *= 2.03;
-    }
-    return f / norm;
-  }
+  function cycle() { clearInterval(timer); if (!reduce) timer = setInterval(function () { show((current + 1) % scenes.length); }, 7000); }
+  tabs.forEach(function (t, n) {
+    t.addEventListener("mouseenter", function () { clearInterval(timer); if (n !== current) show(n); });
+    t.addEventListener("focus", function () { clearInterval(timer); if (n !== current) show(n); });
+    t.addEventListener("mouseleave", cycle);
+    t.addEventListener("blur", cycle);
+  });
+  cycle();
 
-  function tokens() {
-    var cs = getComputedStyle(document.documentElement);
-    var g = function (n) { return cs.getPropertyValue(n).trim(); };
-    return {
-      paper: g("--paper"), surface: g("--surface"), ink: g("--ink"), muted: g("--muted"),
-      rule: g("--rule"), contour: g("--contour"), index: g("--contour-index"),
-      accent: g("--accent"), marker: g("--marker"),
-      floor: g("--floor"), wall: g("--wall")
-    };
+  // Banners drift a little as the page scrolls.
+  var layers = all("[data-parallax]"), ticking = false;
+  function drift() {
+    ticking = false;
+    var vh = window.innerHeight;
+    layers.forEach(function (el) {
+      var r = el.parentNode.getBoundingClientRect();
+      if (r.bottom < -100 || r.top > vh + 100) return;
+      var mid = r.top + r.height / 2 - vh / 2;
+      el.style.transform = "translate3d(0," + (mid * -0.1).toFixed(1) + "px,0)";
+    });
+  }
+  if (!reduce && layers.length) {
+    window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(drift); } }, { passive: true });
+    drift();
   }
 
-  function fit(canvas) {
-    var r = canvas.getBoundingClientRect();
-    if (r.width < 2 || r.height < 2) return null;
-    var dpr = Math.min(2, window.devicePixelRatio || 1);
-    canvas.width = Math.round(r.width * dpr);
-    canvas.height = Math.round(r.height * dpr);
-    var ctx = canvas.getContext("2d");
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    return { ctx: ctx, w: r.width, h: r.height };
-  }
-
-  // Opening: contour map, every fifth line drawn as an index contour.
-  var terrainSeed = 42;
-  function marchingSquares(ctx, F, cols, rows, cell, level) {
-    ctx.beginPath();
-    for (var j = 0; j < rows - 1; j++) {
-      for (var i = 0; i < cols - 1; i++) {
-        var a = F[j * cols + i], b = F[j * cols + i + 1], c = F[(j + 1) * cols + i + 1], d = F[(j + 1) * cols + i];
-        var idx = (a > level ? 8 : 0) | (b > level ? 4 : 0) | (c > level ? 2 : 0) | (d > level ? 1 : 0);
-        if (idx === 0 || idx === 15) continue;
-        var x = i * cell, y = j * cell;
-        var top = [x + cell * (level - a) / (b - a), y];
-        var right = [x + cell, y + cell * (level - b) / (c - b)];
-        var bottom = [x + cell * (level - d) / (c - d), y + cell];
-        var left = [x, y + cell * (level - a) / (d - a)];
-        var seg = function (p, q) { ctx.moveTo(p[0], p[1]); ctx.lineTo(q[0], q[1]); };
-        switch (idx) {
-          case 1: case 14: seg(left, bottom); break;
-          case 2: case 13: seg(bottom, right); break;
-          case 3: case 12: seg(left, right); break;
-          case 4: case 11: seg(top, right); break;
-          case 5: seg(left, top); seg(bottom, right); break;
-          case 6: case 9: seg(top, bottom); break;
-          case 7: case 8: seg(left, top); break;
-          case 10: seg(top, right); seg(left, bottom); break;
-        }
-      }
-    }
-    ctx.stroke();
-  }
-  function drawTerrain() {
-    var canvas = document.getElementById("terrain");
-    var f = fit(canvas); if (!f) return;
-    var ctx = f.ctx, w = f.w, h = f.h, t = tokens();
-    ctx.clearRect(0, 0, w, h);
-    var cell = 6, cols = Math.ceil(w / cell) + 2, rows = Math.ceil(h / cell) + 2;
-    var F = new Float32Array(cols * rows), sc = 1 / 300, min = 1, max = 0;
-    var peak = { v: -1, i: 0, j: 0 };
-    for (var j = 0; j < rows; j++) {
-      for (var i = 0; i < cols; i++) {
-        var v = fbm(i * cell * sc + 3.1, j * cell * sc + 7.7, terrainSeed);
-        F[j * cols + i] = v;
-        if (v < min) min = v;
-        if (v > max) max = v;
-        if (i > cols * 0.58 && i < cols - 6 && j > 6 && j < rows - 10 && v > peak.v) peak = { v: v, i: i, j: j };
-      }
-    }
-    var n = 24;
-    for (var k = 1; k < n; k++) {
-      var level = min + (max - min) * k / n;
-      var isIndex = k % 5 === 0;
-      ctx.strokeStyle = isIndex ? t.index : t.contour;
-      ctx.lineWidth = isIndex ? 1.25 : 0.7;
-      marchingSquares(ctx, F, cols, rows, cell, level);
-    }
-    if (w < 760) return;
-    // Summit marker with a spot height.
-    var px = peak.i * cell, py = peak.j * cell, s = 6;
-    ctx.beginPath();
-    ctx.moveTo(px, py - s); ctx.lineTo(px + s * 0.9, py + s * 0.6); ctx.lineTo(px - s * 0.9, py + s * 0.6); ctx.closePath();
-    ctx.fillStyle = t.marker; ctx.fill();
-    ctx.font = '500 11px "IBM Plex Mono", ui-monospace, monospace';
-    ctx.fillStyle = t.muted; ctx.textBaseline = "middle";
-    var elev = Math.round(400 + (peak.v - min) / (max - min || 1) * 1400);
-    ctx.fillText(elev.toLocaleString("en-US") + " m", px + 10, py);
-  }
-
-  // LoreKeeper plate: a 16 by 9 battle grid of 5 ft squares.
-  function drawTable() {
-    var canvas = document.getElementById("table-plate");
-    var f = fit(canvas); if (!f) return;
-    var ctx = f.ctx, w = f.w, h = f.h, t = tokens();
-    var cols = 16, S = w / cols, rows = 9;
-    ctx.fillStyle = t.surface; ctx.fillRect(0, 0, w, h);
-    var cx = function (g) { return (g + 0.5) * S; };
-
-    // Torchlight carried by the fighter: bright 20 ft, dim 20 ft beyond.
-    var lx = cx(6), ly = cx(4);
-    var glow = ctx.createRadialGradient(lx, ly, S * 4, lx, ly, S * 8);
-    glow.addColorStop(0, t.floor); glow.addColorStop(1, t.surface);
-    ctx.fillStyle = glow; ctx.fillRect(0, 0, w, h);
-
-    ctx.strokeStyle = t.rule; ctx.lineWidth = 1; ctx.beginPath();
-    for (var x = 0; x <= cols; x++) { var gx = Math.round(x * S) + 0.5; ctx.moveTo(gx, 0); ctx.lineTo(gx, h); }
-    for (var y = 0; y <= rows; y++) { var gy = Math.round(y * S) + 0.5; ctx.moveTo(0, gy); ctx.lineTo(w, gy); }
-    ctx.stroke();
-
-    var walls = [[8,0],[8,1],[8,2],[8,3],[8,5],[8,6],[9,6],[10,6],[11,6],[13,6],[14,6],[15,6],[3,1],[3,8]];
-    ctx.fillStyle = t.wall;
-    walls.forEach(function (p) { ctx.fillRect(p[0] * S, p[1] * S, S + 0.5, S + 0.5); });
-
-    // 20 ft radius fireball template on a grid intersection.
-    var fx = 12 * S, fy = 3 * S, fr = 4 * S;
-    ctx.save();
-    ctx.globalAlpha = 0.14; ctx.fillStyle = t.marker;
-    ctx.beginPath(); ctx.arc(fx, fy, fr, 0, Math.PI * 2); ctx.fill();
-    ctx.restore();
-    ctx.save();
-    ctx.setLineDash([5, 4]); ctx.lineWidth = 1.5; ctx.strokeStyle = t.marker;
-    ctx.beginPath(); ctx.arc(fx, fy, fr, 0, Math.PI * 2); ctx.stroke();
-    ctx.restore();
-    ctx.save();
-    ctx.lineWidth = 1.5; ctx.strokeStyle = t.marker;
-    ctx.beginPath(); ctx.moveTo(fx, fy); ctx.lineTo(fx + fr, fy); ctx.stroke();
-    ctx.beginPath(); ctx.arc(fx, fy, 3, 0, Math.PI * 2); ctx.fillStyle = t.marker; ctx.fill();
-    ctx.restore();
-    ctx.font = '500 ' + Math.max(10, Math.round(S * 0.36)) + 'px "IBM Plex Mono", ui-monospace, monospace';
-    ctx.fillStyle = t.marker; ctx.textBaseline = "bottom";
-    ctx.fillText("20 ft", fx + S * 1.1, fy - 4);
-
-    // Wizard's planned move, 30 ft.
-    var path = [[2,7],[3,6],[4,6],[5,5],[6,5],[7,5]];
-    ctx.save();
-    ctx.setLineDash([4, 4]); ctx.lineWidth = 2; ctx.strokeStyle = t.accent;
-    ctx.beginPath();
-    path.forEach(function (p, i) { if (i === 0) ctx.moveTo(cx(p[0]), cx(p[1])); else ctx.lineTo(cx(p[0]), cx(p[1])); });
-    ctx.stroke();
-    ctx.restore();
-    var end = path[path.length - 1];
-    ctx.beginPath(); ctx.arc(cx(end[0]), cx(end[1]), S * 0.16, 0, Math.PI * 2); ctx.fillStyle = t.accent; ctx.fill();
-
-    function token(gx, gy, size, fill, letter) {
-      var r = size * S * 0.4, x0 = gx * S + size * S / 2, y0 = gy * S + size * S / 2;
-      ctx.beginPath(); ctx.arc(x0, y0, r, 0, Math.PI * 2);
-      ctx.fillStyle = fill; ctx.fill();
-      ctx.lineWidth = 2; ctx.strokeStyle = t.paper; ctx.stroke();
-      ctx.fillStyle = t.paper; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-      ctx.font = '600 ' + Math.round(r * 0.95) + 'px "Public Sans", system-ui, sans-serif';
-      ctx.fillText(letter, x0, y0 + 0.5);
-      ctx.textAlign = "start";
-    }
-    token(6, 4, 1, t.accent, "F");
-    token(4, 3, 1, t.accent, "C");
-    token(2, 7, 1, t.accent, "W");
-    token(11, 2, 1, t.marker, "G");
-    token(13, 4, 1, t.marker, "G");
-    token(10, 4, 1, t.marker, "G");
-    token(14, 0, 2, t.marker, "O");
-  }
-
-  // DungeonGame plate: rooms placed from a seed and joined by corridors.
-  function drawDungeon() {
-    var canvas = document.getElementById("dungeon-plate");
-    var f = fit(canvas); if (!f) return;
-    var ctx = f.ctx, w = f.w, h = f.h, t = tokens(), rnd = mulberry32(7);
-    var T = Math.max(6, Math.floor(w / 50)), cols = Math.floor(w / T), rows = Math.floor(h / T);
-    var ox = (w - cols * T) / 2, oy = (h - rows * T) / 2;
-    var g = new Uint8Array(cols * rows), rooms = [];
-    for (var k = 0; k < 400 && rooms.length < 9; k++) {
-      var rw = 4 + Math.floor(rnd() * 6), rh = 3 + Math.floor(rnd() * 4);
-      var rx = 1 + Math.floor(rnd() * (cols - rw - 2)), ry = 1 + Math.floor(rnd() * (rows - rh - 2));
-      var hit = rooms.some(function (r) { return rx < r.x + r.w + 2 && rx + rw + 2 > r.x && ry < r.y + r.h + 2 && ry + rh + 2 > r.y; });
-      if (!hit) rooms.push({ x: rx, y: ry, w: rw, h: rh });
-    }
-    function carve(x, y) { if (x > 0 && y > 0 && x < cols - 1 && y < rows - 1) g[y * cols + x] = 1; }
-    rooms.forEach(function (r) { for (var y = r.y; y < r.y + r.h; y++) for (var x = r.x; x < r.x + r.w; x++) carve(x, y); });
-    var order = rooms.slice().sort(function (a, b) { return (a.x + a.w / 2) - (b.x + b.w / 2); });
-    for (var i = 1; i < order.length; i++) {
-      var A = order[i - 1], B = order[i];
-      var ax = Math.floor(A.x + A.w / 2), ay = Math.floor(A.y + A.h / 2), bx = Math.floor(B.x + B.w / 2), by = Math.floor(B.y + B.h / 2);
-      var x, y;
-      if (rnd() < 0.5) {
-        for (x = Math.min(ax, bx); x <= Math.max(ax, bx); x++) carve(x, ay);
-        for (y = Math.min(ay, by); y <= Math.max(ay, by); y++) carve(bx, y);
-      } else {
-        for (y = Math.min(ay, by); y <= Math.max(ay, by); y++) carve(ax, y);
-        for (x = Math.min(ax, bx); x <= Math.max(ax, bx); x++) carve(x, by);
-      }
-    }
-    ctx.fillStyle = t.surface; ctx.fillRect(0, 0, w, h);
-    ctx.strokeStyle = t.rule; ctx.lineWidth = 0.6;
-    for (var yy = 0; yy < rows; yy++) {
-      for (var xx = 0; xx < cols; xx++) {
-        var px = ox + xx * T, py = oy + yy * T;
-        if (g[yy * cols + xx]) {
-          ctx.fillStyle = t.floor; ctx.fillRect(px, py, T, T);
-          ctx.strokeRect(px + 0.3, py + 0.3, T - 0.6, T - 0.6);
-        } else {
-          var near = false;
-          for (var dy = -1; dy <= 1 && !near; dy++) for (var dx = -1; dx <= 1; dx++) {
-            var nx = xx + dx, ny = yy + dy;
-            if (nx >= 0 && ny >= 0 && nx < cols && ny < rows && g[ny * cols + nx]) { near = true; break; }
-          }
-          if (near) { ctx.fillStyle = t.wall; ctx.fillRect(px, py, T + 0.5, T + 0.5); }
-        }
-      }
-    }
-    ctx.font = '500 ' + Math.max(9, Math.round(T * 0.95)) + 'px "IBM Plex Mono", ui-monospace, monospace';
-    ctx.fillStyle = t.muted; ctx.textBaseline = "top";
-    order.forEach(function (r, n) { ctx.fillText(String(n + 1), ox + r.x * T + 2, oy + r.y * T + 2); });
-    function dot(x, y, col, rad) { ctx.beginPath(); ctx.arc(ox + (x + 0.5) * T, oy + (y + 0.5) * T, rad, 0, Math.PI * 2); ctx.fillStyle = col; ctx.fill(); }
-    if (order.length) { var r0 = order[0]; dot(Math.floor(r0.x + r0.w / 2), Math.floor(r0.y + r0.h / 2), t.accent, T * 0.45); }
-    order.forEach(function (r, n) {
-      if (n < 2 || n % 2) return;
-      var count = 1 + Math.floor(rnd() * 3);
-      for (var m = 0; m < count; m++) dot(r.x + 1 + Math.floor(rnd() * (r.w - 2)), r.y + 1 + Math.floor(rnd() * (r.h - 2)), t.marker, T * 0.32);
+  // Clips play only while they are on screen.
+  var clips = all("video[data-autoplay]");
+  if (reduce || !("IntersectionObserver" in window)) {
+    clips.forEach(function (v) { v.controls = true; });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting && !v.hasAttribute("data-stopped")) { var p = v.play(); if (p && p.catch) p.catch(function () { v.controls = true; }); }
+        else { v.pause(); }
+      });
+    }, { threshold: 0.35 });
+    clips.forEach(function (v) {
+      io.observe(v);
+      v.title = "Click to pause or play";
+      v.addEventListener("click", function () {
+        if (v.paused) { v.removeAttribute("data-stopped"); v.play(); }
+        else { v.setAttribute("data-stopped", ""); v.pause(); }
+      });
     });
   }
 
-  function drawAll() { drawTerrain(); drawTable(); drawDungeon(); }
-  var pending = 0;
-  function schedule() { cancelAnimationFrame(pending); pending = requestAnimationFrame(drawAll); }
-
-  drawAll();
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(schedule);
-  if (window.ResizeObserver) {
-    var ro = new ResizeObserver(schedule);
-    ["terrain", "table-plate", "dungeon-plate"].forEach(function (id) { ro.observe(document.getElementById(id)); });
-  } else {
-    window.addEventListener("resize", schedule);
-  }
-  var mq = window.matchMedia("(prefers-color-scheme: dark)");
-  if (mq.addEventListener) mq.addEventListener("change", schedule);
-  new MutationObserver(schedule).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-
-  document.getElementById("reseed").addEventListener("click", function () {
-    var next = terrainSeed;
-    while (next === terrainSeed) next = 1 + Math.floor(Math.random() * 9999);
-    terrainSeed = next;
-    document.getElementById("seed-value").textContent = String(terrainSeed);
-    drawTerrain();
+  // Scrolling strips: repeat the row so the loop has no seam.
+  if (!reduce) all("[data-loop]").forEach(function (track) {
+    Array.prototype.slice.call(track.children).forEach(function (n) { var c = n.cloneNode(true); c.setAttribute("aria-hidden", "true"); track.appendChild(c); });
   });
 
-  var copyBtn = document.getElementById("copy-email"), status = document.getElementById("copy-status"), timer = 0;
+  // Picture viewer.
+  var lb = $("lb"), lbImg = $("lb-img"), lbCap = $("lb-cap"), lbCount = $("lb-count");
+  var set = [], at = 0, opener = null;
+  function render() {
+    var b = set[at];
+    lbImg.src = b.getAttribute("data-full");
+    lbImg.alt = b.querySelector("img").alt;
+    lbCap.textContent = b.getAttribute("data-cap");
+    lbCount.textContent = (at + 1) + " of " + set.length;
+    var next = set[(at + 1) % set.length];
+    if (next) { var pre = new Image(); pre.src = next.getAttribute("data-full"); }
+  }
+  function open(btn) {
+    var name = btn.closest("[data-gallery]").getAttribute("data-gallery");
+    var seen = {};
+    set = all("[data-gallery='" + name + "'] .shot").filter(function (b) {
+      var k = b.getAttribute("data-full");
+      if (b !== btn && seen[k]) return false;
+      seen[k] = true; return true;
+    });
+    at = set.indexOf(btn); opener = btn;
+    render(); lb.hidden = false; document.body.style.overflow = "hidden"; $("lb-x").focus();
+  }
+  function close() { lb.hidden = true; document.body.style.overflow = ""; lbImg.removeAttribute("src"); if (opener) opener.focus(); }
+  function step(d) { at = (at + d + set.length) % set.length; render(); }
+  all(".shot").forEach(function (b) { b.addEventListener("click", function () { open(b); }); });
+  $("lb-x").addEventListener("click", close);
+  $("lb-prev").addEventListener("click", function () { step(-1); });
+  $("lb-next").addEventListener("click", function () { step(1); });
+  lb.addEventListener("click", function (e) { if (e.target === lb) close(); });
+  document.addEventListener("keydown", function (e) {
+    if (lb.hidden) return;
+    if (e.key === "Escape") close();
+    else if (e.key === "ArrowLeft") step(-1);
+    else if (e.key === "ArrowRight") step(1);
+    else if (e.key === "Tab") {
+      var f = [$("lb-x"), $("lb-prev"), $("lb-next")], i = f.indexOf(document.activeElement);
+      e.preventDefault(); f[(i + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+    }
+  });
+  var sx = null;
+  lb.addEventListener("touchstart", function (e) { sx = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener("touchend", function (e) {
+    if (sx === null) return;
+    var dx = e.changedTouches[0].clientX - sx; sx = null;
+    if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
+  });
+
+  // Copy the email address.
+  var copyBtn = $("copy-email"), status = $("copy-status"), t2 = 0;
   copyBtn.addEventListener("click", function () {
-    var text = document.getElementById("email").textContent.trim();
-    function done(msg) { status.textContent = msg; clearTimeout(timer); timer = setTimeout(function () { status.textContent = ""; }, 3000); }
+    var text = $("email").textContent.trim();
+    function done(msg) { status.textContent = msg; clearTimeout(t2); t2 = setTimeout(function () { status.textContent = ""; }, 3500); }
     function selectIt() {
-      var range = document.createRange(); range.selectNodeContents(document.getElementById("email"));
-      var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      var r = document.createRange(); r.selectNodeContents($("email"));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
       done("Selected. Press Ctrl+C or ⌘C to copy.");
     }
-    try {
-      navigator.clipboard.writeText(text).then(function () { done("Copied"); }, selectIt);
-    } catch (e) { selectIt(); }
+    try { navigator.clipboard.writeText(text).then(function () { done("Copied"); }, selectIt); }
+    catch (e) { selectIt(); }
   });
 })();
 </script>
