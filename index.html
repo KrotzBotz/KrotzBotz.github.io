@@ -258,7 +258,7 @@ footer a { color: #DCDAD3; }
       </div>
       <div class="worlds" id="worlds">
         <a class="wtab on" href="#mmorpg"><img src="assets/bm/crab-raid-s.webp" alt="" width="720" height="331"><span><b>Pixel-art MMORPG</b><span>Co-founder and CTO</span></span><i></i></a>
-        <a class="wtab" href="#dungeonsmithy"><img src="assets/ds/site/monsters-640.webp" alt="" width="640" height="400"><span><b>DungeonSmithy</b><span>D&amp;D in the browser</span></span><i></i></a>
+        <a class="wtab" href="#dungeonsmithy"><img src="assets/ds/new/combat-poster-800.webp" alt="" width="800" height="500"><span><b>DungeonSmithy</b><span>D&amp;D in the browser</span></span><i></i></a>
         <a class="wtab" href="#dungeongame"><img src="assets/dg/dungeon-hall-s.webp" alt="" width="640" height="400"><span><b>DungeonGame</b><span>Dungeon MMO in Unity</span></span><i></i></a>
       </div>
     </div>
@@ -354,18 +354,18 @@ footer a { color: #DCDAD3; }
     </div>
     <div class="sheet">
       <div class="wrap">
-        <div class="duo" data-gallery="DungeonSmithy">
+        <div class="duo">
           <div class="stack">
             <p class="lead">A virtual tabletop for D&amp;D 5th edition that runs in the browser. You open a room, send your friends the link, and play. The game rolls the dice, tracks conditions, and applies the rules for you.</p>
           </div>
-          <button class="shot lead-shot" type="button" data-full="assets/ds/site/hero-1280.webp" data-cap="A town map on the table, with a hero's character sheet beside it"><img src="assets/ds/site/hero-1280.webp" alt="A town map with party tokens and a character sheet" width="1280" height="800" decoding="async"></button>
+          <div class="plate"><video muted loop playsinline preload="none" poster="assets/ds/new/abbey-walk-poster-1280.webp" data-autoplay width="1280" height="800" aria-label="Clip: a party walks through a dark abbey by torchlight as the fog lifts from each room"><source src="assets/ds/new/abbey-walk.mp4" type="video/mp4"></video></div>
         </div>
 
         <div class="sub"><h3>What I built</h3></div>
         <ul class="list" >
-          <li>A 5e rules engine that resolves every attack, save, and spell on the server. It covers 6 classes, 257 monsters, 46 spells, and 123 magic items.</li>
-          <li>Grid combat with initiative, opportunity attacks, cover, line of sight, and lighting.</li>
-          <li>Town and street generation from a seed. I ported Watabou's city generator to TypeScript.</li>
+          <li>A 5e rules engine that resolves every attack, save, and spell on the server. It covers all twelve classes to level 15, 334 monsters, and 710 items.</li>
+          <li>Grid combat with initiative, opportunity attacks, cover, line of sight, lighting, and fog of war.</li>
+          <li>Map generation from a seed: towns, villages, houses, caves, and dungeons, each laid out to its own plan. The town generator began as my TypeScript port of Watabou's city generator.</li>
           <li>A canvas renderer that draws the world and town maps.</li>
           <li>The whole stack around it: the browser client, four backend services, the database, and the deployment.</li>
         </ul>
@@ -374,16 +374,16 @@ footer a { color: #DCDAD3; }
         <div class="sub"><h3>In play</h3></div>
         <div class="clips three">
           <figure>
-            <div class="plate"><video muted loop playsinline preload="none" poster="assets/ds/clip-fireball.webp" data-autoplay aria-label="Clip: a wizard casts Fireball on a group of goblins"><source src="assets/ds/clip-fireball.mp4" type="video/mp4"></video></div>
-            <figcaption><b>Combat.</b> Aim a Fireball and you see who is in the blast before you cast it.</figcaption>
+            <div class="plate"><video muted loop playsinline preload="none" poster="assets/ds/new/combat-poster-800.webp" data-autoplay aria-label="Clip: heroes fight skeletons in a ruined abbey while the battle log reads each roll"><source src="assets/ds/new/combat.mp4" type="video/mp4"></video></div>
+            <figcaption><b>Combat.</b> Every blow is resolved on the server, and the log reads out each roll.</figcaption>
+          </figure>
+          <figure>
+            <div class="plate"><video muted loop playsinline preload="none" poster="assets/ds/new/deep-picks-poster-800.webp" data-autoplay aria-label="Clip: reward cards are dealt between dungeon floors"><source src="assets/ds/new/deep-picks.mp4" type="video/mp4"></video></div>
+            <figcaption><b>Between floors.</b> Rewards are dealt as cards, and the party picks what to keep.</figcaption>
           </figure>
           <figure>
             <div class="plate"><video muted loop playsinline preload="none" poster="assets/ds/clip-world.webp" data-autoplay aria-label="Clip: the camera moves across a world map"><source src="assets/ds/clip-world.mp4" type="video/mp4"></video></div>
             <figcaption><b>The world.</b> A whole continent on one map, drawn by a renderer I wrote.</figcaption>
-          </figure>
-          <figure>
-            <div class="plate"><video muted loop playsinline preload="none" poster="assets/ds/clip-talk.webp" data-autoplay aria-label="Clip: a conversation with an innkeeper"><source src="assets/ds/clip-talk.mp4" type="video/mp4"></video></div>
-            <figcaption><b>Towns.</b> Talk to an innkeeper and the board waits for everyone at the table.</figcaption>
           </figure>
         </div>
 
@@ -394,24 +394,36 @@ footer a { color: #DCDAD3; }
         </div>
         <p class="note" style="margin-top: 10px">Scene cards from the game. Players see one when they arrive somewhere new.</p>
 
-        <div class="sub"><h3>Screenshots</h3><p>From dungeonsmithy.com. Select one to see it full size.</p></div>
+        <div class="sub"><h3>Screens</h3><p>Select one to see it full size.</p></div>
         <div class="shots" data-gallery="DungeonSmithy">
-          <button class="shot" type="button" data-full="assets/ds/site/monsters-960.webp" data-cap="A fight with skeletons in a candlelit abbey"><img src="assets/ds/site/monsters-640.webp" alt="Heroes fight skeletons on a stone grid" width="640" height="400" loading="lazy" decoding="async"><span>Combat</span></button>
-          <button class="shot" type="button" data-full="assets/ds/site/talk-960.webp" data-cap="Talking with an innkeeper"><img src="assets/ds/site/talk-640.webp" alt="A conversation window with an innkeeper's portrait" width="640" height="400" loading="lazy" decoding="async"><span>Conversation</span></button>
-          <button class="shot" type="button" data-full="assets/ds/site/party-960.webp" data-cap="Four players at one table in a snowy town at night"><img src="assets/ds/site/party-640.webp" alt="Party tokens on a snowy town map with chat" width="640" height="400" loading="lazy" decoding="async"><span>A party in town</span></button>
-          <button class="shot" type="button" data-full="assets/ds/site/arrival-800.webp" data-cap="Arriving in a village: a painted scene card"><img src="assets/ds/site/arrival-640.webp" alt="A scene card with a painting of a village" width="640" height="400" loading="lazy" decoding="async"><span>Arriving somewhere new</span></button>
-          <button class="shot" type="button" data-full="assets/ds/site/keep-800.webp" data-cap="Walking through a keep's gate at dusk as the fog lifts"><img src="assets/ds/site/keep-640.webp" alt="A party at a keep's gate with fog over the map" width="640" height="400" loading="lazy" decoding="async"><span>Fog of war</span></button>
-          <button class="shot" type="button" data-full="assets/ds/site/forge-1280.webp" data-cap="Creating a hero, laid out as a journal"><img src="assets/ds/site/forge-640.webp" alt="A journal page summarizing a new fighter" width="640" height="400" loading="lazy" decoding="async"><span>Character creation</span></button>
-          <button class="shot" type="button" data-full="assets/ds/site/levelup-1280.webp" data-cap="Choosing spells on level-up"><img src="assets/ds/site/levelup-640.webp" alt="A journal page listing spells to choose" width="640" height="400" loading="lazy" decoding="async"><span>Leveling up</span></button>
+          <button class="shot" type="button" data-full="assets/ds/new/waymark-hall-1600.webp" data-cap="The Waymark Hall, where a party picks up its next job"><img src="assets/ds/new/waymark-hall-800.webp" alt="A top-down plan of a guild hall with a long table and side rooms" width="800" height="572" loading="lazy" decoding="async"><span>Guild hall</span></button>
+          <button class="shot" type="button" data-full="assets/ds/new/hall-faces-1600.webp" data-cap="The people who run the hall"><img src="assets/ds/new/hall-faces-800.webp" alt="Eight painted portraits of the hall staff" width="800" height="437" loading="lazy" decoding="async"><span>People of the hall</span></button>
           <button class="shot" type="button" data-full="assets/ds/site/spellbook-960.webp" data-cap="The spellbook, open in the middle of a fight"><img src="assets/ds/site/spellbook-640.webp" alt="An open spellbook listing third-level spells" width="640" height="400" loading="lazy" decoding="async"><span>Spellbook</span></button>
-          <button class="shot" type="button" data-full="assets/ds/site/bag-960.webp" data-cap="A hero's bag"><img src="assets/ds/site/bag-640.webp" alt="An inventory window with potions and gear" width="640" height="400" loading="lazy" decoding="async"><span>Inventory</span></button>
-          <button class="shot" type="button" data-full="assets/ds/site/shop-960.webp" data-cap="A smith's shelves, with prices"><img src="assets/ds/site/shop-640.webp" alt="A shop window listing weapons and prices" width="640" height="400" loading="lazy" decoding="async"><span>Shop</span></button>
-          <button class="shot" type="button" data-full="assets/ds/site/quest-board-960.webp" data-cap="Jobs on a town's notice board"><img src="assets/ds/site/quest-board-640.webp" alt="Two quest notices pinned to a board" width="640" height="400" loading="lazy" decoding="async"><span>Notice board</span></button>
-          <button class="shot" type="button" data-full="assets/ds/site/hero-1280.webp" data-cap="A town map on the table, with a hero's character sheet beside it"><img src="assets/ds/site/hero-640.webp" alt="A town map with party tokens and a character sheet" width="640" height="400" loading="lazy" decoding="async"><span>Town map</span></button>
-          <button class="shot" type="button" data-full="assets/ds/site/world-halvane-640.webp" data-cap="Halvane, a frozen world of pine and snow"><img src="assets/ds/site/world-halvane-640.webp" alt="A snowy world map" width="640" height="400" loading="lazy" decoding="async"><span>World: Halvane</span></button>
-          <button class="shot" type="button" data-full="assets/ds/site/world-tolmere-640.webp" data-cap="Tolmere, a drowned world of rain and stilt towns"><img src="assets/ds/site/world-tolmere-640.webp" alt="A green and blue world map" width="640" height="400" loading="lazy" decoding="async"><span>World: Tolmere</span></button>
-          <button class="shot" type="button" data-full="assets/ds/site/world-lanternfall-640.webp" data-cap="Lanternfall, a twilight world of drifting lanterns"><img src="assets/ds/site/world-lanternfall-640.webp" alt="A tan and purple world map dotted with lights" width="640" height="400" loading="lazy" decoding="async"><span>World: Lanternfall</span></button>
-          <button class="shot" type="button" data-full="assets/ds/site/world-wanhope-640.webp" data-cap="Wanhope, a gray world of moors and barrows"><img src="assets/ds/site/world-wanhope-640.webp" alt="A gray world map" width="640" height="400" loading="lazy" decoding="async"><span>World: Wanhope</span></button>
+          <button class="shot" type="button" data-full="assets/ds/site/bag-960.webp" data-cap="A hero&#39;s bag"><img src="assets/ds/site/bag-640.webp" alt="An inventory window with potions and gear" width="640" height="400" loading="lazy" decoding="async"><span>Inventory</span></button>
+          <button class="shot" type="button" data-full="assets/ds/site/shop-960.webp" data-cap="A smith&#39;s shelves, with prices"><img src="assets/ds/site/shop-640.webp" alt="A shop window listing weapons and prices" width="640" height="400" loading="lazy" decoding="async"><span>Shop</span></button>
+          <button class="shot" type="button" data-full="assets/ds/site/quest-board-960.webp" data-cap="Jobs on a town&#39;s notice board"><img src="assets/ds/site/quest-board-640.webp" alt="Two quest notices pinned to a board" width="640" height="400" loading="lazy" decoding="async"><span>Notice board</span></button>
+          <button class="shot" type="button" data-full="assets/ds/site/levelup-1280.webp" data-cap="Choosing spells on level-up"><img src="assets/ds/site/levelup-640.webp" alt="A journal page listing spells to choose" width="640" height="400" loading="lazy" decoding="async"><span>Leveling up</span></button>
+          <button class="shot" type="button" data-full="assets/ds/site/arrival-800.webp" data-cap="Arriving in a village: a painted scene card"><img src="assets/ds/site/arrival-640.webp" alt="A scene card with a painting of a village" width="640" height="400" loading="lazy" decoding="async"><span>Arriving somewhere new</span></button>
+        </div>
+
+        <div class="sub"><h3>Places the game builds</h3><p>Every map here is generated from a seed.</p></div>
+        <div class="shots" data-gallery="DungeonSmithy">
+          <button class="shot" type="button" data-full="assets/ds/new/towns-1600.webp" data-cap="A river town, a harbour town, a walled town and a city"><img src="assets/ds/new/towns-800.webp" alt="Four generated town maps" width="800" height="833" loading="lazy" decoding="async"><span>Towns</span></button>
+          <button class="shot" type="button" data-full="assets/ds/new/villages-1600.webp" data-cap="A hamlet, a crossroads inn, a monastery, a toll bridge and a graveyard"><img src="assets/ds/new/villages-800.webp" alt="Six generated village maps" width="800" height="549" loading="lazy" decoding="async"><span>Villages</span></button>
+          <button class="shot" type="button" data-full="assets/ds/new/houses-1600.webp" data-cap="Six house plans, each laid out for what the building is for"><img src="assets/ds/new/houses-800.webp" alt="Six generated house floor plans" width="800" height="566" loading="lazy" decoding="async"><span>Houses</span></button>
+          <button class="shot" type="button" data-full="assets/ds/new/abandoned-houses-1600.webp" data-cap="The same buildings lived in, shut up, looted and fallen in"><img src="assets/ds/new/abandoned-houses-800.webp" alt="A grid of house plans in four states of decay" width="800" height="630" loading="lazy" decoding="async"><span>Abandoned houses</span></button>
+          <button class="shot" type="button" data-full="assets/ds/new/dungeon-floors-1600.webp" data-cap="Dungeon floors: a crypt, a temple, a hideout, a hall, a mine and a sewer"><img src="assets/ds/new/dungeon-floors-800.webp" alt="Eight generated dungeon floor plans" width="800" height="423" loading="lazy" decoding="async"><span>Dungeon floors</span></button>
+          <button class="shot" type="button" data-full="assets/ds/new/entrances-1600.webp" data-cap="The board a party arrives on, outside each kind of dungeon"><img src="assets/ds/new/entrances-800.webp" alt="Eight generated outdoor maps with dungeon entrances" width="800" height="414" loading="lazy" decoding="async"><span>Dungeon entrances</span></button>
+          <button class="shot" type="button" data-full="assets/ds/new/caves-1600.webp" data-cap="Six cave shapes, from a great cavern to twin caverns joined by a river"><img src="assets/ds/new/caves-800.webp" alt="Six generated cave maps" width="800" height="566" loading="lazy" decoding="async"><span>Caves</span></button>
+          <button class="shot" type="button" data-full="assets/ds/new/coast-1600.webp" data-cap="A harbour quay, a lighthouse on its rock, and a wreck on the shore, each from two seeds"><img src="assets/ds/new/coast-800.webp" alt="Generated maps of a quay, a lighthouse and a shipwreck" width="800" height="497" loading="lazy" decoding="async"><span>The coast</span></button>
+        </div>
+
+        <div class="sub"><h3>Worlds</h3><p>Four of the worlds a campaign can start in.</p></div>
+        <div class="shots" data-gallery="DungeonSmithy">
+          <button class="shot" type="button" data-full="assets/ds/new/world-halvane-2000.webp" data-cap="Halvane, a frozen world of pine and snow"><img src="assets/ds/site/world-halvane-640.webp" alt="A snowy world map" width="640" height="400" loading="lazy" decoding="async"><span>World: Halvane</span></button>
+          <button class="shot" type="button" data-full="assets/ds/new/world-tolmere-2000.webp" data-cap="Tolmere, a drowned world of rain and stilt towns"><img src="assets/ds/site/world-tolmere-640.webp" alt="A green and blue world map" width="640" height="400" loading="lazy" decoding="async"><span>World: Tolmere</span></button>
+          <button class="shot" type="button" data-full="assets/ds/new/world-lanternfall-2000.webp" data-cap="Lanternfall, a twilight world of drifting lanterns"><img src="assets/ds/site/world-lanternfall-640.webp" alt="A tan and purple world map dotted with lights" width="640" height="400" loading="lazy" decoding="async"><span>World: Lanternfall</span></button>
+          <button class="shot" type="button" data-full="assets/ds/new/world-wanhope-2000.webp" data-cap="Wanhope, a gray world of moors and barrows"><img src="assets/ds/site/world-wanhope-640.webp" alt="A gray world map" width="640" height="400" loading="lazy" decoding="async"><span>World: Wanhope</span></button>
         </div>
       </div>
     </div>
